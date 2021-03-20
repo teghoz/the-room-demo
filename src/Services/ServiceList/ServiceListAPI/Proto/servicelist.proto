@@ -1,0 +1,43 @@
+﻿syntax = "proto3";
+
+/* >>
+import "google/api/annotations.proto";
+<< */
+
+
+package ServiceListApi;
+
+message ServiceListItemRequest {
+	int32 id = 1;
+}
+
+message ServiceListItemsRequest {
+	string ids = 1;
+	int32 pageSize = 2;
+	int32 pageIndex = 3;
+}
+
+message ServiceListItemResponse {
+	int32 id = 1;
+	string name = 2;
+    string description=3;
+    double price=4;
+}
+
+message PaginatedItemsResponse {
+	int32 pageIndex = 1;
+	int32 pageSize = 2;
+	int64 count = 3;
+	repeated ServiceListItemResponse data = 4;
+}
+
+service ServiceList {
+  rpc GetItemById (ServiceListItemRequest) returns (ServiceListItemResponse) {
+   /* >>
+  	option (google.api.http) = {
+        get: "/api/v1/catalog/items/{id}"
+      };
+	<< */
+	}
+  rpc GetItemsByIds (ServiceListItemsRequest) returns (PaginatedItemsResponse) {}
+}

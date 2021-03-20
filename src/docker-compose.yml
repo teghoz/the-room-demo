@@ -1,7 +1,6 @@
 version: '3.4'
 
 services:
-
   seq:
     image: datalust/seq:latest
 
@@ -18,7 +17,7 @@ services:
     image: rabbitmq:3-management-alpine
 
   identity-api:
-    image: ${REGISTRY:-theRoom}/IdentityApi:${PLATFORM:-linux}-${TAG:-latest}
+    image: ${REGISTRY:-the-room}/identity-api:${PLATFORM:-linux}-${TAG:-latest}
     build:
       context: .
       dockerfile: Services/Identity/IdentityAPI/Dockerfile
