@@ -8,8 +8,6 @@ namespace TheRoom.BuildingBlocks.EventBus
 {
     public partial class InMemoryEventBusSubscriptionsManager : IEventBusSubscriptionsManager
     {
-
-
         private readonly Dictionary<string, List<SubscriptionInfo>> _handlers;
         private readonly List<Type> _eventTypes;
 
@@ -66,15 +64,12 @@ namespace TheRoom.BuildingBlocks.EventBus
                 _handlers[eventName].Add(SubscriptionInfo.Typed(handlerType));
             }
         }
-
-
         public void RemoveDynamicSubscription<TH>(string eventName)
             where TH : IDynamicIntegrationEventHandler
         {
             var handlerToRemove = FindDynamicSubscriptionToRemove<TH>(eventName);
             DoRemoveHandler(eventName, handlerToRemove);
         }
-
 
         public void RemoveSubscription<T, TH>()
             where TH : IIntegrationEventHandler<T>
@@ -84,7 +79,6 @@ namespace TheRoom.BuildingBlocks.EventBus
             var eventName = GetEventKey<T>();
             DoRemoveHandler(eventName, handlerToRemove);
         }
-
 
         private void DoRemoveHandler(string eventName, SubscriptionInfo subsToRemove)
         {
@@ -101,7 +95,6 @@ namespace TheRoom.BuildingBlocks.EventBus
                     }
                     RaiseOnEventRemoved(eventName);
                 }
-
             }
         }
 
@@ -117,14 +110,11 @@ namespace TheRoom.BuildingBlocks.EventBus
             var handler = OnEventRemoved;
             handler?.Invoke(this, eventName);
         }
-
-
         private SubscriptionInfo FindDynamicSubscriptionToRemove<TH>(string eventName)
             where TH : IDynamicIntegrationEventHandler
         {
             return DoFindSubscriptionToRemove(eventName, typeof(TH));
         }
-
 
         private SubscriptionInfo FindSubscriptionToRemove<T, TH>()
              where T : IntegrationEvent
@@ -142,7 +132,6 @@ namespace TheRoom.BuildingBlocks.EventBus
             }
 
             return _handlers[eventName].SingleOrDefault(s => s.HandlerType == handlerType);
-
         }
 
         public bool HasSubscriptionsForEvent<T>() where T : IntegrationEvent

@@ -54,9 +54,8 @@
             string[] csvheaders;
             try
             {
-                string[] requiredHeaders = { "catalogtypename", "catalogbrandname", "description", "name", "price", "picturefilename" };
-                string[] optionalheaders = { "availablestock", "restockthreshold", "maxstockthreshold", "onreorder" };
-                csvheaders = GetHeaders(csvFileServiceListItems, requiredHeaders, optionalheaders);
+                string[] requiredHeaders = { "name", "description",  "price" };
+                csvheaders = GetHeaders(csvFileServiceListItems, requiredHeaders, null);
             }
             catch (Exception ex)
             {

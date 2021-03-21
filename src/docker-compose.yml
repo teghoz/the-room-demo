@@ -29,6 +29,7 @@ services:
     depends_on:
       - identity-api
       - sqldata
+      - rabbitmq
 
   bonus-api:
     image: ${REGISTRY:-the-room}/bonus-api:${PLATFORM:-linux}-${TAG:-latest}

@@ -11,8 +11,8 @@ namespace IdentityAPI.Configuration
         {
             return new List<ApiResource>
             {
-                new ApiResource("bonus", "Orders Service"),
-                new ApiResource("servie.list", "Basket Service"),
+                new ApiResource("bonus", "Bonus Service"),
+                new ApiResource("service.list", "ServiceList Service"),
                 new ApiResource("bonus.signalrhub", "Bonus Signalr Hub"),
                 new ApiResource("webhooks", "Webhooks registration Service"),
             };

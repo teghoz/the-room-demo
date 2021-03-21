@@ -7,9 +7,6 @@ services:
   nosqldata:
     image: mongo:windowsservercore
 
-  basket.data:
-    image: redis:nanoserver
-
   rabbitmq:
     image: spring2/rabbitmq
 

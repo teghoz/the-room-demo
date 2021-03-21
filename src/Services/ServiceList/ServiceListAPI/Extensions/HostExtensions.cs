@@ -25,9 +25,7 @@ namespace ServiceListAPI.Extensions
             using (var scope = host.Services.CreateScope())
             {
                 var services = scope.ServiceProvider;
-
                 var logger = services.GetRequiredService<ILogger<TContext>>();
-
                 var context = services.GetService<TContext>();
 
                 try

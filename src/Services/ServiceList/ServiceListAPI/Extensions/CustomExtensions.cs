@@ -68,8 +68,8 @@ namespace ServiceListAPI.Extensions
                 .AddCheck("self", () => HealthCheckResult.Healthy())
                 .AddSqlServer(
                     configuration["ConnectionString"],
-                    name: "CatalogDB-check",
-                    tags: new string[] { "catalogdb" });
+                    name: "ServiceListDB-check",
+                    tags: new string[] { "servicelistdb" });
 
             if (!string.IsNullOrEmpty(accountName) && !string.IsNullOrEmpty(accountKey))
             {
@@ -85,8 +85,8 @@ namespace ServiceListAPI.Extensions
                 hcBuilder
                     .AddAzureServiceBusTopic(
                         configuration["EventBusConnection"],
-                        topicName: "eshop_event_bus",
-                        name: "catalog-servicebus-check",
+                        topicName: "the_room_event_bus",
+                        name: "service-list-servicebus-check",
                         tags: new string[] { "servicebus" });
             }
             else
@@ -94,7 +94,7 @@ namespace ServiceListAPI.Extensions
                 hcBuilder
                     .AddRabbitMQ(
                         $"amqp://{configuration["EventBusConnection"]}",
-                        name: "catalog-rabbitmqbus-check",
+                        name: "service-list-rabbitmqbus-check",
                         tags: new string[] { "rabbitmqbus" });
             }
 
@@ -213,7 +213,9 @@ namespace ServiceListAPI.Extensions
                     var factory = new ConnectionFactory()
                     {
                         HostName = configuration["EventBusConnection"],
-                        DispatchConsumersAsync = true
+                        //Uri = new Uri("amqp://quest:quest@localhost:16672/vhost"),
+                        DispatchConsumersAsync = true,
+                        Port = int.Parse(configuration["EventBusPort"])
                     };
 
                     if (!string.IsNullOrEmpty(configuration["EventBusUserName"]))
@@ -252,7 +254,6 @@ namespace ServiceListAPI.Extensions
                     return new EventBusServiceBus(serviceBusPersisterConnection, logger,
                         eventBusSubcriptionsManager, iLifetimeScope);
                 });
-
             }
             else
             {

@@ -24,8 +24,8 @@ services:
 
   rabbitmq:
     ports:
-      - "16672:16672"
-      - "6672:6672"
+      - "16672:15672"
+      - "6672:5672"
 
   identity-api:
     environment:
@@ -64,7 +64,7 @@ services:
       - ApplicationInsights__InstrumentationKey=${INSTRUMENTATION_KEY}
       - OrchestratorType=${ORCHESTRATOR_TYPE}
     ports:
-      - "8106:80"
+      - "8106:3000"
 
   webstatus:
     environment:
