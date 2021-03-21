@@ -1,12 +1,12 @@
 ﻿using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Storage;
-using TheRoom.BuildingBlocks.EventBus.Events;
 using System;
 using System.Collections.Generic;
 using System.Data.Common;
 using System.Linq;
 using System.Reflection;
 using System.Threading.Tasks;
+using TheRoom.BuildingBlocks.EventBus.Events;
 
 namespace TheRoom.BuildingBlocks.IntegrationEventLogEF.Services
 {

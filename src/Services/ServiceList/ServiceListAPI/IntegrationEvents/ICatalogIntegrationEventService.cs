@@ -1,5 +1,5 @@
-﻿using TheRoom.BuildingBlocks.EventBus.Events;
-using System.Threading.Tasks;
+﻿using System.Threading.Tasks;
+using TheRoom.BuildingBlocks.EventBus.Events;
 
 namespace ServiceListAPI.IntegrationEvents
 {

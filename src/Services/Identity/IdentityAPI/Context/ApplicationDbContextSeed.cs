@@ -130,16 +130,16 @@ namespace IdentityAPI.Context
             var user =
             new ApplicationUser()
             {
-                Country = "U.S.",
-                Email = "demouser@microsoft.com",
+                Country = "Mauritius",
+                Email = "aghoghobernard@theroom.com",
                 Id = Guid.NewGuid().ToString(),
                 LastName = "DemoLastName",
-                FirstName = "DemoUser",
-                PhoneNumber = "1234567890",
-                UserName = "demouser@microsoft.com",
-                ZipCode = "98052",
-                NormalizedEmail = "DEMOUSER@MICROSOFT.COM",
-                NormalizedUserName = "DEMOUSER@MICROSOFT.COM",
+                FirstName = "Aghogho Bernard",
+                PhoneNumber = "+23059291397",
+                UserName = "aghoghobernard@theroom.com",
+                ZipCode = "11023",
+                NormalizedEmail = "AGHOGHOBERNARD@THEROOM.COM",
+                NormalizedUserName = "AGHOGHOBERNARD@THEROOM.COM",
                 SecurityStamp = Guid.NewGuid().ToString("D"),
             };
 

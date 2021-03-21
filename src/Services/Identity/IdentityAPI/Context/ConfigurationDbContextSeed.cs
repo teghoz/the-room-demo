@@ -17,12 +17,8 @@ namespace IdentityAPI.Context
             var clientUrls = new Dictionary<string, string>();
 
             clientUrls.Add("Spa", configuration.GetValue<string>("SpaClient"));
-            clientUrls.Add("BasketApi", configuration.GetValue<string>("BasketApiClient"));
-            clientUrls.Add("OrderingApi", configuration.GetValue<string>("OrderingApiClient"));
-            clientUrls.Add("MobileShoppingAgg", configuration.GetValue<string>("MobileShoppingAggClient"));
-            clientUrls.Add("WebShoppingAgg", configuration.GetValue<string>("WebShoppingAggClient"));
-            clientUrls.Add("WebhooksApi", configuration.GetValue<string>("WebhooksApiClient"));
-            clientUrls.Add("WebhooksWeb", configuration.GetValue<string>("WebhooksWebClient"));
+            clientUrls.Add("ServiceListApi", configuration.GetValue<string>("ServiceListApiClient"));
+            clientUrls.Add("BonusApi", configuration.GetValue<string>("BonusApiClient"));
 
             if (!context.Clients.Any())
             {

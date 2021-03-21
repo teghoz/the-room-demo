@@ -9,9 +9,8 @@ namespace IdentityAPI.Certificates
         public static X509Certificate2 Get()
         {
             var assembly = typeof(Certificate).GetTypeInfo().Assembly;
-            var names = assembly.GetManifestResourceNames();
 
-            using (var stream = assembly.GetManifestResourceStream("Identity.API.Certificate.idsrv3test.pfx"))
+            using (var stream = assembly.GetManifestResourceStream("IdentityAPI.Certificates.idsrv3test.pfx"))
             {
                 return new X509Certificate2(ReadStream(stream), "idsrv3test");
             }

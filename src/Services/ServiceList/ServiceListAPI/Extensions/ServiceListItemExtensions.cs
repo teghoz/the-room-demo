@@ -1,6 +1,4 @@
-﻿using ServiceListAPI.Model;
-
-namespace ServiceListAPI.Extensions
+﻿namespace ServiceListAPI.Extensions
 {
     public static class ServiceListItemExtensions
     {

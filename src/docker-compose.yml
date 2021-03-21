@@ -10,9 +10,6 @@ services:
   nosqldata:
     image: mongo
 
-  basketdata:
-    image: redis:alpine
-
   rabbitmq:
     image: rabbitmq:3-management-alpine
 
@@ -23,3 +20,35 @@ services:
       dockerfile: Services/Identity/IdentityAPI/Dockerfile
     depends_on:
       - sqldata
+  
+  service-list-api:
+    image: ${REGISTRY:-the-room}/service-list-api:${PLATFORM:-linux}-${TAG:-latest}
+    build:
+      context: .
+      dockerfile: Services/ServiceList/ServiceListAPI/Dockerfile
+    depends_on:
+      - identity-api
+      - sqldata
+
+  bonus-api:
+    image: ${REGISTRY:-the-room}/bonus-api:${PLATFORM:-linux}-${TAG:-latest}
+    build:
+      context: .
+      dockerfile: Services/Bonus/BonusAPI/Dockerfile
+    depends_on:
+      - identity-api
+      - sqldata
+  
+  the-room-react-app:
+    image: ${REGISTRY:-the-room}/react-app:${PLATFORM:-linux}-${TAG:-latest}
+    build:
+      context: .
+      dockerfile: Web/the-room/Dockerfile
+    depends_on:
+      - identity-api
+
+  webstatus:
+    image: ${REGISTRY:-the-room}/webstatus:${PLATFORM:-linux}-${TAG:-latest}
+    build:
+      context: .
+      dockerfile: Web/WebStatus/Dockerfile

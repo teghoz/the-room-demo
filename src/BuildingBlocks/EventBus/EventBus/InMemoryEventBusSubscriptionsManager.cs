@@ -1,8 +1,8 @@
-﻿using TheRoom.BuildingBlocks.EventBus.Abstractions;
-using TheRoom.BuildingBlocks.EventBus.Events;
-using System;
+﻿using System;
 using System.Collections.Generic;
 using System.Linq;
+using TheRoom.BuildingBlocks.EventBus.Abstractions;
+using TheRoom.BuildingBlocks.EventBus.Events;
 
 namespace TheRoom.BuildingBlocks.EventBus
 {

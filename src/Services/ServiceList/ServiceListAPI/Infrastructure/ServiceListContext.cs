@@ -18,7 +18,6 @@
         }
     }
 
-
     public class ServiceListContextDesignFactory : IDesignTimeDbContextFactory<ServiceListContext>
     {
         public ServiceListContext CreateDbContext(string[] args)

@@ -1,13 +1,13 @@
 ﻿using Microsoft.EntityFrameworkCore;
+using Microsoft.Extensions.Logging;
+using ServiceListAPI.Infrastructure;
+using System;
+using System.Data.Common;
+using System.Threading.Tasks;
 using TheRoom.BuildingBlocks.EventBus.Abstractions;
 using TheRoom.BuildingBlocks.EventBus.Events;
 using TheRoom.BuildingBlocks.IntegrationEventLogEF.Services;
 using TheRoom.BuildingBlocks.IntegrationEventLogEF.Utilities;
-using Microsoft.Extensions.Logging;
-using System;
-using System.Data.Common;
-using System.Threading.Tasks;
-using ServiceListAPI.Infrastructure;
 
 namespace ServiceListAPI.IntegrationEvents
 {

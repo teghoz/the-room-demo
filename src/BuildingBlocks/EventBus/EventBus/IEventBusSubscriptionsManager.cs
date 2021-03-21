@@ -1,7 +1,7 @@
-﻿using TheRoom.BuildingBlocks.EventBus.Abstractions;
-using TheRoom.BuildingBlocks.EventBus.Events;
-using System;
+﻿using System;
 using System.Collections.Generic;
+using TheRoom.BuildingBlocks.EventBus.Abstractions;
+using TheRoom.BuildingBlocks.EventBus.Events;
 using static TheRoom.BuildingBlocks.EventBus.InMemoryEventBusSubscriptionsManager;
 
 namespace TheRoom.BuildingBlocks.EventBus

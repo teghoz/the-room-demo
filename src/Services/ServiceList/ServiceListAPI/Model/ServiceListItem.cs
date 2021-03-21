@@ -1,6 +1,4 @@
-﻿using System;
-
-namespace ServiceListAPI.Model
+﻿namespace ServiceListAPI.Model
 {
     public class ServiceListItem
     {

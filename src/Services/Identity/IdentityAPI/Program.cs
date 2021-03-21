@@ -13,7 +13,7 @@ using System;
 using System.IO;
 
 string Namespace = typeof(Startup).Namespace;
-string AppName = Namespace.Substring(Namespace.LastIndexOf('.', Namespace.LastIndexOf('.') - 1) + 1);
+string AppName = Namespace;
 var configuration = GetConfiguration();
 Log.Logger = CreateSerilogLogger(configuration);
 

@@ -1,0 +1,84 @@
+version: '3.4'
+
+services:
+  seq:
+    environment:
+      - ACCEPT_EULA=Y
+    ports:
+      - "6340:80"
+
+  sqldata:
+    environment:
+      - SA_PASSWORD=Pass@word
+      - ACCEPT_EULA=Y
+    ports:
+      - "6433:1433"
+    volumes:
+      - the-room-sqldata:/var/opt/mssql
+
+  nosqldata:
+    ports:
+      - "28017:28017"
+    volumes:
+      - the-room-nosqldata:/data/db
+
+  rabbitmq:
+    ports:
+      - "16672:16672"
+      - "6672:6672"
+
+  identity-api:
+    environment:
+      - ASPNETCORE_ENVIRONMENT=Development
+      - ASPNETCORE_URLS=http://0.0.0.0:80
+      - SpaClient=http://${THE_ROOM_EXTERNAL_DNS_NAME_OR_IP}:6104
+      - ConnectionString=${THE_ROOM_AZURE_IDENTITY_DB:-Server=sqldata;Database=TheRoom.Service.IdentityDb;User Id=sa;Password=Pass@word}
+      - OrderingApiClient=http://${THE_ROOM_EXTERNAL_DNS_NAME_OR_IP}:5102
+      - UseCustomizationData=True
+      - ApplicationInsights__InstrumentationKey=${INSTRUMENTATION_KEY}
+      - OrchestratorType=${ORCHESTRATOR_TYPE}
+    ports:
+      - "6105:80"
+
+  service-list-api:
+    environment:
+      - ASPNETCORE_ENVIRONMENT=Development
+      - ASPNETCORE_URLS=http://0.0.0.0:80
+      - SpaClient=http://${THE_ROOM_EXTERNAL_DNS_NAME_OR_IP}:6105
+      - ConnectionString=${THE_ROOM_AZURE_IDENTITY_DB:-Server=sqldata;Database=TheRoom.Service.ServiceListDb;User Id=sa;Password=Pass@word}
+      - OrderingApiClient=http://${THE_ROOM_EXTERNAL_DNS_NAME_OR_IP}:6102
+      - UseCustomizationData=True
+      - ApplicationInsights__InstrumentationKey=${INSTRUMENTATION_KEY}
+      - OrchestratorType=${ORCHESTRATOR_TYPE}
+    ports:
+      - "7105:80"
+
+  the-room-react-app:
+    environment:
+      - ASPNETCORE_ENVIRONMENT=Development
+      - ASPNETCORE_URLS=http://0.0.0.0:80
+      - SpaClient=http://${THE_ROOM_EXTERNAL_DNS_NAME_OR_IP}:8105
+      - ConnectionString=${THE_ROOM_AZURE_IDENTITY_DB:-Server=sqldata;Database=TheRoom.Service.ServiceListDb;User Id=sa;Password=Pass@word}
+      - OrderingApiClient=http://${THE_ROOM_EXTERNAL_DNS_NAME_OR_IP}:6102
+      - UseCustomizationData=True
+      - ApplicationInsights__InstrumentationKey=${INSTRUMENTATION_KEY}
+      - OrchestratorType=${ORCHESTRATOR_TYPE}
+    ports:
+      - "8106:80"
+
+  webstatus:
+    environment:
+      - ASPNETCORE_ENVIRONMENT=Development
+      - ASPNETCORE_URLS=http://0.0.0.0:80
+      - HealthChecksUI__HealthChecks__7__Name=Identity HTTP Check
+      - HealthChecksUI__HealthChecks__7__Uri=http://identity-api/hc
+      - ApplicationInsights__InstrumentationKey=${INSTRUMENTATION_KEY}
+      - OrchestratorType=${ORCHESTRATOR_TYPE}
+    ports:
+      - "6107:80"
+
+volumes:
+  the-room-sqldata:
+    external: false
+  the-room-nosqldata:
+    external: false

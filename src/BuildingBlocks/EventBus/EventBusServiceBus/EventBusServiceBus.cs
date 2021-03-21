@@ -2,15 +2,15 @@
 {
     using Autofac;
     using Microsoft.Azure.ServiceBus;
-    using TheRoom.BuildingBlocks.EventBus;
-    using TheRoom.BuildingBlocks.EventBus.Abstractions;
-    using TheRoom.BuildingBlocks.EventBus.Events;
     using Microsoft.Extensions.Logging;
     using Newtonsoft.Json;
     using Newtonsoft.Json.Linq;
     using System;
     using System.Text;
     using System.Threading.Tasks;
+    using TheRoom.BuildingBlocks.EventBus;
+    using TheRoom.BuildingBlocks.EventBus.Abstractions;
+    using TheRoom.BuildingBlocks.EventBus.Events;
 
     public class EventBusServiceBus : IEventBus
     {

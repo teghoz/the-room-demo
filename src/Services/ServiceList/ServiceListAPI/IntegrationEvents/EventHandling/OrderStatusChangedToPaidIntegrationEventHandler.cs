@@ -1,11 +1,11 @@
 ﻿namespace ServiceListAPI.IntegrationEvents.EventHandling
 {
-    using TheRoom.BuildingBlocks.EventBus.Abstractions;
     using Infrastructure;
     using Microsoft.Extensions.Logging;
     using Serilog.Context;
-    using System.Threading.Tasks;
     using ServiceListAPI.IntegrationEvents.Events;
+    using System.Threading.Tasks;
+    using TheRoom.BuildingBlocks.EventBus.Abstractions;
 
     public class OrderStatusChangedToPaidIntegrationEventHandler :
         IIntegrationEventHandler<OrderStatusChangedToPaidIntegrationEvent>

@@ -48,10 +48,6 @@ namespace ServiceListAPI.Extensions
                              TimeSpan.FromSeconds(8),
                              });
 
-                        //if the sql server container is not created on run docker compose this
-                        //migration can't fail for network related exception. The retry options for DbContext only 
-                        //apply to transient exceptions
-                        // Note that this is NOT applied when running some orchestrators (let the orchestrator to recreate the failing service)
                         retry.Execute(() => InvokeSeeder(seeder, context, services));
                     }
 
@@ -62,7 +58,7 @@ namespace ServiceListAPI.Extensions
                     logger.LogError(ex, "An error occurred while migrating the database used on context {DbContextName}", typeof(TContext).Name);
                     if (underK8s)
                     {
-                        throw;          // Rethrow under k8s because we rely on k8s to re-run the pod
+                        throw;
                     }
                 }
             }

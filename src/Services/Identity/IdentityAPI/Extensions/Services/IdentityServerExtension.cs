@@ -1,10 +1,18 @@
 using IdentityAPI.Certificates;
+using IdentityAPI.Context;
 using IdentityAPI.Devspaces;
 using IdentityAPI.Models;
+using IdentityAPI.Services;
+using IdentityServer4.Services;
+using Microsoft.AspNetCore.DataProtection;
+using Microsoft.AspNetCore.Identity;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
+using Microsoft.Extensions.Diagnostics.HealthChecks;
+using StackExchange.Redis;
 using System;
+using System.Reflection;
 
 namespace IdentityAPI.Extensions.Service
 {
@@ -12,6 +20,30 @@ namespace IdentityAPI.Extensions.Service
     {
         public static IServiceCollection RegisterIdentityServer(this IServiceCollection services, IConfiguration configuration, string connectionString, string migrationsAssembly)
         {
+            services.AddIdentity<ApplicationUser, IdentityRole>()
+                .AddEntityFrameworkStores<ApplicationDbContext>()
+                .AddDefaultTokenProviders();
+
+            services.Configure<AppSettings>(configuration);
+
+            if (configuration.GetValue<string>("IsClusterEnv") == bool.TrueString)
+            {
+                services.AddDataProtection(opts =>
+                {
+                    opts.ApplicationDiscriminator = "the-room.identity";
+                })
+                .PersistKeysToStackExchangeRedis(ConnectionMultiplexer.Connect(configuration["DPConnectionString"]), "DataProtection-Keys");
+            }
+
+            services.AddHealthChecks()
+                .AddCheck("self", () => HealthCheckResult.Healthy())
+                .AddSqlServer(configuration["ConnectionString"],
+                    name: "IdentityDB-check",
+                    tags: new string[] { "IdentityDB" });
+
+            services.AddTransient<ILoginService<ApplicationUser>, EFLoginService>();
+            services.AddTransient<IRedirectService, RedirectService>();
+
             services.AddIdentityServer(x =>
             {
                 x.IssuerUri = "null";
@@ -37,7 +69,8 @@ namespace IdentityAPI.Extensions.Service
                         sqlOptions.MigrationsAssembly(migrationsAssembly);
                         sqlOptions.EnableRetryOnFailure(maxRetryCount: 15, maxRetryDelay: TimeSpan.FromSeconds(30), errorNumbersToAdd: null);
                     });
-            });
+            })
+            .Services.AddTransient<IProfileService, ProfileService>();
 
             return services;
         }

@@ -55,45 +55,13 @@ namespace IdentityAPI.Configuration
                 },
                 new Client
                 {
-                    ClientId = "webhooksclient",
-                    ClientName = "Webhooks Client",
-                    ClientSecrets = new List<Secret>
-                    {
-                        new Secret("secret".Sha256())
-                    },
-                    ClientUri = $"{clientsUrl["WebhooksWeb"]}",
-                    AllowedGrantTypes = GrantTypes.Hybrid,
-                    AllowAccessTokensViaBrowser = false,
-                    RequireConsent = false,
-                    AllowOfflineAccess = true,
-                    AlwaysIncludeUserClaimsInIdToken = true,
-                    RedirectUris = new List<string>
-                    {
-                        $"{clientsUrl["WebhooksWeb"]}/signin-oidc"
-                    },
-                    PostLogoutRedirectUris = new List<string>
-                    {
-                        $"{clientsUrl["WebhooksWeb"]}/signout-callback-oidc"
-                    },
-                    AllowedScopes = new List<string>
-                    {
-                        IdentityServerConstants.StandardScopes.OpenId,
-                        IdentityServerConstants.StandardScopes.Profile,
-                        IdentityServerConstants.StandardScopes.OfflineAccess,
-                        "webhooks"
-                    },
-                    AccessTokenLifetime = 60*60*2, // 2 hours
-                    IdentityTokenLifetime= 60*60*2 // 2 hours
-                },
-                new Client
-                {
                     ClientId = "bonusswaggerui",
                     ClientName = "Bonus Swagger UI",
                     AllowedGrantTypes = GrantTypes.Implicit,
                     AllowAccessTokensViaBrowser = true,
 
-                    RedirectUris = { $"{clientsUrl["BasketApi"]}/swagger/oauth2-redirect.html" },
-                    PostLogoutRedirectUris = { $"{clientsUrl["BasketApi"]}/swagger/" },
+                    RedirectUris = { $"{clientsUrl["BonusApi"]}/swagger/oauth2-redirect.html" },
+                    PostLogoutRedirectUris = { $"{clientsUrl["BonusApi"]}/swagger/" },
 
                     AllowedScopes =
                     {
@@ -107,29 +75,14 @@ namespace IdentityAPI.Configuration
                     AllowedGrantTypes = GrantTypes.Implicit,
                     AllowAccessTokensViaBrowser = true,
 
-                    RedirectUris = { $"{clientsUrl["OrderingApi"]}/swagger/oauth2-redirect.html" },
-                    PostLogoutRedirectUris = { $"{clientsUrl["OrderingApi"]}/swagger/" },
+                    RedirectUris = { $"{clientsUrl["ServiceListApi"]}/swagger/oauth2-redirect.html" },
+                    PostLogoutRedirectUris = { $"{clientsUrl["ServiceListApi"]}/swagger/" },
 
                     AllowedScopes =
                     {
                         "orders"
                     }
                 },
-                new Client
-                {
-                    ClientId = "webhooksswaggerui",
-                    ClientName = "WebHooks Service Swagger UI",
-                    AllowedGrantTypes = GrantTypes.Implicit,
-                    AllowAccessTokensViaBrowser = true,
-
-                    RedirectUris = { $"{clientsUrl["WebhooksApi"]}/swagger/oauth2-redirect.html" },
-                    PostLogoutRedirectUris = { $"{clientsUrl["WebhooksApi"]}/swagger/" },
-
-                    AllowedScopes =
-                    {
-                        "webhooks"
-                    }
-                }
             };
         }
     }

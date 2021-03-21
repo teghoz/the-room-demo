@@ -1,15 +1,15 @@
-﻿using ServiceListApi;
-using Grpc.Core;
+﻿using Grpc.Core;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Logging;
 using Microsoft.Extensions.Options;
+using ServiceListApi;
+using ServiceListAPI.Infrastructure;
+using ServiceListAPI.Model;
 using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 using static ServiceListApi.ServiceList;
-using ServiceListAPI.Infrastructure;
-using ServiceListAPI.Model;
 
 namespace ServiceListAPI.Grpc
 {

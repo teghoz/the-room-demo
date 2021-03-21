@@ -1,8 +1,4 @@
 ﻿using Autofac;
-using TheRoom.BuildingBlocks.EventBus;
-using TheRoom.BuildingBlocks.EventBus.Abstractions;
-using TheRoom.BuildingBlocks.EventBus.Events;
-using TheRoom.BuildingBlocks.EventBus.Extensions;
 using Microsoft.Extensions.Logging;
 using Newtonsoft.Json;
 using Newtonsoft.Json.Linq;
@@ -15,6 +11,10 @@ using System;
 using System.Net.Sockets;
 using System.Text;
 using System.Threading.Tasks;
+using TheRoom.BuildingBlocks.EventBus;
+using TheRoom.BuildingBlocks.EventBus.Abstractions;
+using TheRoom.BuildingBlocks.EventBus.Events;
+using TheRoom.BuildingBlocks.EventBus.Extensions;
 
 namespace TheRoom.BuildingBlocks.EventBusRabbitMQ
 {

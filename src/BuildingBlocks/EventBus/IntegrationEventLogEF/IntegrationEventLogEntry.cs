@@ -1,8 +1,8 @@
-﻿using TheRoom.BuildingBlocks.EventBus.Events;
-using Newtonsoft.Json;
+﻿using Newtonsoft.Json;
 using System;
 using System.ComponentModel.DataAnnotations.Schema;
 using System.Linq;
+using TheRoom.BuildingBlocks.EventBus.Events;
 
 namespace TheRoom.BuildingBlocks.IntegrationEventLogEF
 {

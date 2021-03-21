@@ -5,8 +5,6 @@ using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Diagnostics.HealthChecks;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.Http;
-using Microsoft.AspNetCore.HttpsPolicy;
-using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
@@ -14,10 +12,7 @@ using Microsoft.Extensions.Logging;
 using ServiceListAPI.Extensions;
 using ServiceListAPI.Grpc;
 using System;
-using System.Collections.Generic;
 using System.IO;
-using System.Linq;
-using System.Threading.Tasks;
 
 namespace ServiceListAPI
 {
@@ -70,11 +65,14 @@ namespace ServiceListAPI
             app.UseSwagger()
              .UseSwaggerUI(c =>
              {
-                 c.SwaggerEndpoint($"{ (!string.IsNullOrEmpty(pathBase) ? pathBase : string.Empty) }/swagger/v1/swagger.json", "Catalog.API V1");
+                 c.SwaggerEndpoint($"{ (!string.IsNullOrEmpty(pathBase) ? pathBase : string.Empty) }/swagger/v1/swagger.json", "ServiceListAPI V1");
+                 c.OAuthClientId("servicelistswaggerui");
+                 c.OAuthAppName("ServiceList Swagger UI");
              });
 
             app.UseRouting();
             app.UseCors("CorsPolicy");
+            app.ConfigureAuth();
             app.UseEndpoints(endpoints =>
             {
                 endpoints.MapDefaultControllerRoute();

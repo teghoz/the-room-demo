@@ -1,0 +1,18 @@
+version: '3.4'
+
+services:      
+  service-list-api:
+    environment:
+      - EventBusUserName=admin
+      - EventBusPassword=password
+
+  bonus-api:
+    environment:
+      - EventBusUserName=admin
+      - EventBusPassword=password
+
+
+  ordering-signalrhub:
+    environment:
+      - EventBusUserName=admin
+      - EventBusPassword=password

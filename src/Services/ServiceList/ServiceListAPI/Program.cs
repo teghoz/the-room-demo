@@ -1,4 +1,3 @@
-using ServiceListAPI.Extensions;
 using Microsoft.AspNetCore;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.Server.Kestrel.Core;
@@ -9,10 +8,11 @@ using Microsoft.Extensions.Logging;
 using Microsoft.Extensions.Options;
 using Serilog;
 using ServiceListAPI;
+using ServiceListAPI.Extensions;
+using ServiceListAPI.Infrastructure;
 using System;
 using System.IO;
 using System.Net;
-using ServiceListAPI.Infrastructure;
 using TheRoom.BuildingBlocks.IntegrationEventLogEF;
 
 var configuration = GetConfiguration();

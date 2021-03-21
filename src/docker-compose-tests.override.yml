@@ -1,0 +1,29 @@
+version: '3.4'
+
+services:
+  rabbitmq-test:
+    ports:
+      - "15672:15672"
+      - "5672:5672"
+
+  sql-data-test:
+    environment:
+      - SA_PASSWORD=Pass@word
+      - ACCEPT_EULA=Y
+    ports:
+      - "5433:1433"
+
+  nosql-data-test:
+    ports:
+      - "27017:27017"
+
+  identity-api-test:
+    environment:
+      - ASPNETCORE_ENVIRONMENT=Development
+      - ASPNETCORE_URLS=http://0.0.0.0:80
+      - ConnectionString=${THE_ROOM_AZURE_IDENTITY_DB:-Server=sql-data-test;Database=TheRoom.Service.IdentityDb;User Id=sa;Password=Pass@word}
+      - UseCustomizationData=True
+      - ApplicationInsights__InstrumentationKey=${INSTRUMENTATION_KEY}
+      - OrchestratorType=${ORCHESTRATOR_TYPE}
+    ports:
+      - "5105:80"

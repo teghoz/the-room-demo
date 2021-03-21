@@ -20,7 +20,7 @@ namespace IdentityAPI.Context.Factories
             var optionsBuilder = new DbContextOptionsBuilder<PersistedGrantDbContext>();
             var operationOptions = new OperationalStoreOptions();
 
-            optionsBuilder.UseSqlServer(config["ConnectionString"], sqlServerOptionsAction: o => o.MigrationsAssembly("Identity.API"));
+            optionsBuilder.UseSqlServer(config["ConnectionString"], sqlServerOptionsAction: o => o.MigrationsAssembly("IdentityAPI"));
 
             return new PersistedGrantDbContext(optionsBuilder.Options, operationOptions);
         }

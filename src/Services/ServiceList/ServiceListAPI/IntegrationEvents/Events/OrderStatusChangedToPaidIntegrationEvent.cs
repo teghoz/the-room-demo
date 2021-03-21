@@ -1,7 +1,7 @@
 ﻿namespace ServiceListAPI.IntegrationEvents.Events
 {
-    using TheRoom.BuildingBlocks.EventBus.Events;
     using System.Collections.Generic;
+    using TheRoom.BuildingBlocks.EventBus.Events;
 
     public record OrderStatusChangedToPaidIntegrationEvent : IntegrationEvent
     {

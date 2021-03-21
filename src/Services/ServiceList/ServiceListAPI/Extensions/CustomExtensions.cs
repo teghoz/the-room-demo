@@ -1,4 +1,5 @@
 using Autofac;
+using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.Azure.ServiceBus;
@@ -15,7 +16,9 @@ using ServiceListAPI.Infrastructure.Filters;
 using ServiceListAPI.IntegrationEvents;
 using ServiceListAPI.IntegrationEvents.EventHandling;
 using System;
+using System.Collections.Generic;
 using System.Data.Common;
+using System.IdentityModel.Tokens.Jwt;
 using System.Reflection;
 using TheRoom.BuildingBlocks.EventBus;
 using TheRoom.BuildingBlocks.EventBus.Abstractions;
@@ -35,7 +38,6 @@ namespace ServiceListAPI.Extensions
 
             return services;
         }
-
         public static IServiceCollection AddCustomMVC(this IServiceCollection services, IConfiguration configuration)
         {
             services.AddControllers(options =>
@@ -55,7 +57,6 @@ namespace ServiceListAPI.Extensions
 
             return services;
         }
-
         public static IServiceCollection AddCustomHealthCheck(this IServiceCollection services, IConfiguration configuration)
         {
             var accountName = configuration.GetValue<string>("AzureStorageAccountName");
@@ -99,7 +100,6 @@ namespace ServiceListAPI.Extensions
 
             return services;
         }
-
         public static IServiceCollection AddCustomDbContext(this IServiceCollection services, IConfiguration configuration)
         {
             services.AddEntityFrameworkSqlServer()
@@ -127,7 +127,6 @@ namespace ServiceListAPI.Extensions
 
             return services;
         }
-
         public static IServiceCollection AddCustomOptions(this IServiceCollection services, IConfiguration configuration)
         {
             services.Configure<ServiceListSettings>(configuration);
@@ -151,7 +150,6 @@ namespace ServiceListAPI.Extensions
 
             return services;
         }
-
         public static IServiceCollection AddSwagger(this IServiceCollection services, IConfiguration configuration)
         {
             services.AddSwaggerGen(options =>
@@ -159,16 +157,34 @@ namespace ServiceListAPI.Extensions
                 options.DescribeAllEnumsAsStrings();
                 options.SwaggerDoc("v1", new OpenApiInfo
                 {
-                    Title = "eShopOnContainers - Catalog HTTP API",
+                    Title = "TheRoom - ServiceList HTTP API",
                     Version = "v1",
-                    Description = "The Catalog Microservice HTTP API. This is a Data-Driven/CRUD microservice sample"
+                    Description = "The ServiceList Service HTTP API"
                 });
+
+                options.AddSecurityDefinition("oauth2", new OpenApiSecurityScheme
+                {
+                    Type = SecuritySchemeType.OAuth2,
+                    Flows = new OpenApiOAuthFlows()
+                    {
+                        Implicit = new OpenApiOAuthFlow()
+                        {
+                            AuthorizationUrl = new Uri($"{configuration.GetValue<string>("IdentityUrlExternal")}/connect/authorize"),
+                            TokenUrl = new Uri($"{configuration.GetValue<string>("IdentityUrlExternal")}/connect/token"),
+                            Scopes = new Dictionary<string, string>()
+                            {
+                                { "servicelist", "ServiceList API" }
+                            }
+                        }
+                    }
+                });
+
+                options.OperationFilter<AuthorizeCheckOperationFilter>();
             });
 
             return services;
 
         }
-
         public static IServiceCollection AddIntegrationServices(this IServiceCollection services, IConfiguration configuration)
         {
             services.AddTransient<Func<DbConnection, IIntegrationEventLogService>>(
@@ -222,7 +238,6 @@ namespace ServiceListAPI.Extensions
 
             return services;
         }
-
         public static IServiceCollection AddEventBus(this IServiceCollection services, IConfiguration configuration)
         {
             if (configuration.GetValue<bool>("AzureServiceBusEnabled"))
@@ -262,6 +277,27 @@ namespace ServiceListAPI.Extensions
             services.AddSingleton<IEventBusSubscriptionsManager, InMemoryEventBusSubscriptionsManager>();
             services.AddTransient<OrderStatusChangedToAwaitingValidationIntegrationEventHandler>();
             services.AddTransient<OrderStatusChangedToPaidIntegrationEventHandler>();
+
+            return services;
+        }
+        public static IServiceCollection ConfigureAuthService(this IServiceCollection services, IConfiguration configuration)
+        {
+            // prevent from mapping "sub" claim to nameidentifier.
+            JwtSecurityTokenHandler.DefaultInboundClaimTypeMap.Remove("sub");
+
+            var identityUrl = configuration.GetValue<string>("IdentityUrl");
+
+            services.AddAuthentication(options =>
+            {
+                options.DefaultAuthenticateScheme = JwtBearerDefaults.AuthenticationScheme;
+                options.DefaultChallengeScheme = JwtBearerDefaults.AuthenticationScheme;
+
+            }).AddJwtBearer(options =>
+            {
+                options.Authority = identityUrl;
+                options.RequireHttpsMetadata = false;
+                options.Audience = "servicelist";
+            });
 
             return services;
         }
