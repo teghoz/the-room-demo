@@ -4,12 +4,16 @@
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <meta name="description" content="">
-    <meta name="author" content="Mark Otto, Jacob Thornton, and Bootstrap contributors">
-    <meta name="generator" content="Hugo 0.80.0">
+    <meta name="author" content="The Room - Aghogho Bernard">
     <title>The Room</title>
 
     <!-- Bootstrap core CSS -->
+    <link rel="stylesheet" href="https://unpkg.com/ionicons@4.5.10-0/dist/css/ionicons.min.css">
     <link href="assets/dist/css/bootstrap.min.css" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Material+Icons">
+    <link href='https://fonts.googleapis.com/css?family=Roboto' rel='stylesheet'>
+    <link href='https://fonts.googleapis.com/css?family=Rubik' rel='stylesheet'>
 
     <style>
       .bd-placeholder-img {
@@ -24,6 +28,15 @@
         width: 12%;
       }
 
+      .promo{
+        border-right: none;
+      }
+
+      .input-group-text {
+        border-left: none;
+        border-left-style: none;
+      }
+
       @media (min-width: 768px) {
         .bd-placeholder-img-lg {
           font-size: 3.5rem;
@@ -33,6 +46,7 @@
     
     <!-- Custom styles for this template -->
     <link href="assets/dashboard.css" rel="stylesheet">
+    <script src="https://code.iconify.design/1/1.0.7/iconify.min.js"></script>
   </head>
   <body>
     
@@ -46,12 +60,19 @@
     <button class="navbar-toggler position-absolute d-md-none collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#sidebarMenu" aria-controls="sidebarMenu" aria-expanded="false" aria-label="Toggle navigation">
       <span class="navbar-toggler-icon"></span>
     </button>
-    <div class="flex flex-start">
-      abcs
+    <div class="price-section d-flex">
+      <div class="align-items-start px-2">
+        <small>Balance</small>
+        <h6>213 920 $</h6>
+      </div>
+      <div class="align-items-start">
+        <small>Payout</small>
+        <h6>213 920 $</h6>
+      </div>
     </div>
     <ul class="navbar-nav px-3">
       <li class="nav-item text-nowrap">
-        <a class="nav-link" href="#">Sign out</a>
+        <a class="btn btn-outline-default nav-link" onclick="localStorage.clear(); window.location.reload()">Sign out</a>
       </li>
     </ul>
   </header>
@@ -63,38 +84,44 @@
           <ul class="nav flex-column">
             <li class="nav-item">
               <a class="nav-link active" aria-current="page" href="#">
-                <span data-feather="home"></span>
-                Dashboard
+                <svg height="30" width="30">
+                  <circle cx="15" cy="15" r="10" stroke="white" stroke-width="3" fill="transparent"/>
+                </svg>
               </a>
             </li>
             <li class="nav-item">
               <a class="nav-link" href="#">
-                <span data-feather="file"></span>
-                Orders
+                <svg height="30" width="30">
+                  <circle cx="15" cy="15" r="10" stroke="white" stroke-width="3" fill="transparent"/>
+                </svg>
               </a>
             </li>
             <li class="nav-item">
               <a class="nav-link" href="#">
-                <span data-feather="shopping-cart"></span>
-                Products
+                <svg height="30" width="30">
+                  <circle cx="15" cy="15" r="10" stroke="white" stroke-width="3" fill="transparent"/>
+                </svg>
               </a>
             </li>
             <li class="nav-item">
               <a class="nav-link" href="#">
-                <span data-feather="users"></span>
-                Customers
+                <svg height="30" width="30">
+                  <circle cx="15" cy="15" r="10" stroke="white" stroke-width="3" fill="transparent"/>
+                </svg>
               </a>
             </li>
             <li class="nav-item">
               <a class="nav-link" href="#">
-                <span data-feather="bar-chart-2"></span>
-                Reports
+                <svg height="30" width="30">
+                  <circle cx="15" cy="15" r="10" stroke="white" stroke-width="3" fill="transparent"/>
+                </svg>
               </a>
             </li>
             <li class="nav-item">
               <a class="nav-link" href="#">
-                <span data-feather="layers"></span>
-                Integrations
+                <svg height="30" width="30">
+                  <circle cx="15" cy="15" r="10" stroke="white" stroke-width="3" fill="transparent"/>
+                </svg>
               </a>
             </li>
           </ul>
