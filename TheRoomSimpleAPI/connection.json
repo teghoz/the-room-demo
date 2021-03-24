@@ -1,0 +1,3 @@
+﻿{
+  "ConnectionString": "Server=tcp:localhost,6433;Database=TheRoom.SimpleDb;User Id=sa;Password=Pass@word;"
+}
