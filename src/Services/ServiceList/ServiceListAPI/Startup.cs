@@ -26,7 +26,7 @@ namespace ServiceListAPI
         public IConfiguration Configuration { get; }
 
         // This method gets called by the runtime. Use this method to add services to the container.
-        public IServiceProvider ConfigureServices(IServiceCollection services)
+        public virtual IServiceProvider ConfigureServices(IServiceCollection services)
         {
             services.AddAppInsight(Configuration)
                 .AddGrpc().Services
@@ -36,12 +36,19 @@ namespace ServiceListAPI
                 .AddIntegrationServices(Configuration)
                 .AddEventBus(Configuration)
                 .AddSwagger(Configuration)
+                .ConfigureAuthService(Configuration)
                 .AddCustomHealthCheck(Configuration);
 
             var container = new ContainerBuilder();
             container.Populate(services);
 
             return new AutofacServiceProvider(container.Build());
+        }
+
+        protected virtual void ConfigureAuth(IApplicationBuilder app)
+        {
+            app.UseAuthentication();
+            app.UseAuthorization();
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
@@ -72,7 +79,7 @@ namespace ServiceListAPI
 
             app.UseRouting();
             app.UseCors("CorsPolicy");
-            app.ConfigureAuth();
+            ConfigureAuth(app);
             app.UseEndpoints(endpoints =>
             {
                 endpoints.MapDefaultControllerRoute();

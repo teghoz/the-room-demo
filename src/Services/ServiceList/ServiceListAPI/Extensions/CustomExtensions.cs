@@ -11,6 +11,7 @@ using Microsoft.Extensions.Logging;
 using Microsoft.Extensions.Options;
 using Microsoft.OpenApi.Models;
 using RabbitMQ.Client;
+using ServiceListAPI.Controllers;
 using ServiceListAPI.Infrastructure;
 using ServiceListAPI.Infrastructure.Filters;
 using ServiceListAPI.IntegrationEvents;
@@ -43,7 +44,7 @@ namespace ServiceListAPI.Extensions
             services.AddControllers(options =>
             {
                 options.Filters.Add(typeof(HttpGlobalExceptionFilter));
-            }).AddNewtonsoftJson();
+            }).AddApplicationPart(typeof(ServiceListController).Assembly).AddNewtonsoftJson();
 
             services.AddCors(options =>
             {
@@ -190,7 +191,7 @@ namespace ServiceListAPI.Extensions
             services.AddTransient<Func<DbConnection, IIntegrationEventLogService>>(
                 sp => (DbConnection c) => new IntegrationEventLogService(c));
 
-            services.AddTransient<ICatalogIntegrationEventService, CatalogIntegrationEventService>();
+            services.AddTransient<IServiceListIntegrationEventService, ServiceListIntegrationEventService>();
 
             if (configuration.GetValue<bool>("AzureServiceBusEnabled"))
             {
@@ -276,8 +277,8 @@ namespace ServiceListAPI.Extensions
             }
 
             services.AddSingleton<IEventBusSubscriptionsManager, InMemoryEventBusSubscriptionsManager>();
-            services.AddTransient<OrderStatusChangedToAwaitingValidationIntegrationEventHandler>();
-            services.AddTransient<OrderStatusChangedToPaidIntegrationEventHandler>();
+            services.AddTransient<BonsuActivatedIntegrationEventHandler>();
+            services.AddTransient<ServiceListPriceChangeIntegrationEventHandler>();
 
             return services;
         }

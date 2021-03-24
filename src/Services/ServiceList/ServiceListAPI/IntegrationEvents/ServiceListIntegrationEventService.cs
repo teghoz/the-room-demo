@@ -11,17 +11,17 @@ using TheRoom.BuildingBlocks.IntegrationEventLogEF.Utilities;
 
 namespace ServiceListAPI.IntegrationEvents
 {
-    public class CatalogIntegrationEventService : ICatalogIntegrationEventService, IDisposable
+    public class ServiceListIntegrationEventService : IServiceListIntegrationEventService, IDisposable
     {
         private readonly Func<DbConnection, IIntegrationEventLogService> _integrationEventLogServiceFactory;
         private readonly IEventBus _eventBus;
         private readonly ServiceListContext _ServiceListContext;
         private readonly IIntegrationEventLogService _eventLogService;
-        private readonly ILogger<CatalogIntegrationEventService> _logger;
+        private readonly ILogger<IServiceListIntegrationEventService> _logger;
         private volatile bool disposedValue;
 
-        public CatalogIntegrationEventService(
-            ILogger<CatalogIntegrationEventService> logger,
+        public ServiceListIntegrationEventService(
+            ILogger<IServiceListIntegrationEventService> logger,
             IEventBus eventBus,
             ServiceListContext ServiceListContext,
             Func<DbConnection, IIntegrationEventLogService> integrationEventLogServiceFactory)

@@ -22,9 +22,9 @@ namespace ServiceListAPI.Controllers
     {
         private readonly ServiceListContext _serviceListContext;
         private readonly ServiceListSettings _settings;
-        private readonly ICatalogIntegrationEventService _catalogIntegrationEventService;
+        private readonly IServiceListIntegrationEventService _catalogIntegrationEventService;
 
-        public ServiceListController(ServiceListContext context, IOptionsSnapshot<ServiceListSettings> settings, ICatalogIntegrationEventService catalogIntegrationEventService)
+        public ServiceListController(ServiceListContext context, IOptionsSnapshot<ServiceListSettings> settings, IServiceListIntegrationEventService catalogIntegrationEventService)
         {
             _serviceListContext = context ?? throw new ArgumentNullException(nameof(context));
             _catalogIntegrationEventService = catalogIntegrationEventService ?? throw new ArgumentNullException(nameof(catalogIntegrationEventService));
@@ -97,7 +97,6 @@ namespace ServiceListAPI.Controllers
             }
 
             var item = await _serviceListContext.ServiceListItems.SingleOrDefaultAsync(ci => ci.Id == id);
-
             var baseUri = _settings.PicBaseUrl;
             var azureStorageEnabled = _settings.AzureStorageEnabled;
 
@@ -116,82 +115,43 @@ namespace ServiceListAPI.Controllers
         public async Task<ActionResult<PaginatedItemsViewModel<ServiceListItem>>> ItemsWithNameAsync(string name, [FromQuery] int pageSize = 10, [FromQuery] int pageIndex = 0)
         {
             var totalItems = await _serviceListContext.ServiceListItems
-                .Where(c => c.Name.StartsWith(name))
+                .Where(c => c.Name.Contains(name))
                 .LongCountAsync();
 
             var itemsOnPage = await _serviceListContext.ServiceListItems
-                .Where(c => c.Name.StartsWith(name))
+                .Where(c => c.Name.Contains(name))
                 .Skip(pageSize * pageIndex)
                 .Take(pageSize)
                 .ToListAsync();
 
             return new PaginatedItemsViewModel<ServiceListItem>(pageIndex, pageSize, totalItems, itemsOnPage);
         }
-
-        // GET api/v1/[controller]/items/type/1/brand[?pageSize=3&pageIndex=10]
-        [HttpGet]
-        [Route("items/type/{catalogTypeId}/brand/{catalogBrandId:int?}")]
-        [ProducesResponseType(typeof(PaginatedItemsViewModel<ServiceListItem>), (int)HttpStatusCode.OK)]
-        public async Task<ActionResult<PaginatedItemsViewModel<ServiceListItem>>> ItemsByTypeIdAndBrandIdAsync(int catalogTypeId, int? catalogBrandId, [FromQuery] int pageSize = 10, [FromQuery] int pageIndex = 0)
-        {
-            var root = (IQueryable<ServiceListItem>)_serviceListContext.ServiceListItems;
-
-            var totalItems = await root
-                .LongCountAsync();
-
-            var itemsOnPage = await root
-                .Skip(pageSize * pageIndex)
-                .Take(pageSize)
-                .ToListAsync();
-
-            return new PaginatedItemsViewModel<ServiceListItem>(pageIndex, pageSize, totalItems, itemsOnPage);
-        }
-
-        // GET api/v1/[controller]/items/type/all/brand[?pageSize=3&pageIndex=10]
-        [HttpGet]
-        [Route("items/type/all/brand/{catalogBrandId:int?}")]
-        [ProducesResponseType(typeof(PaginatedItemsViewModel<ServiceListItem>), (int)HttpStatusCode.OK)]
-        public async Task<ActionResult<PaginatedItemsViewModel<ServiceListItem>>> ItemsByBrandIdAsync(int? catalogBrandId, [FromQuery] int pageSize = 10, [FromQuery] int pageIndex = 0)
-        {
-            var root = (IQueryable<ServiceListItem>)_serviceListContext.ServiceListItems;
-
-            var totalItems = await root
-                .LongCountAsync();
-
-            var itemsOnPage = await root
-                .Skip(pageSize * pageIndex)
-                .Take(pageSize)
-                .ToListAsync();
-
-            return new PaginatedItemsViewModel<ServiceListItem>(pageIndex, pageSize, totalItems, itemsOnPage);
-        }
-
 
         //PUT api/v1/[controller]/items
         [Route("items")]
         [HttpPut]
         [ProducesResponseType((int)HttpStatusCode.NotFound)]
         [ProducesResponseType((int)HttpStatusCode.Created)]
-        public async Task<ActionResult> UpdateProductAsync([FromBody] ServiceListItem productToUpdate)
+        public async Task<ActionResult> UpdateserviceListItemAsync([FromBody] ServiceListItem serviceListItemToUpdate)
         {
-            var ServiceListItem = await _serviceListContext.ServiceListItems.SingleOrDefaultAsync(i => i.Id == productToUpdate.Id);
+            var ServiceListItem = await _serviceListContext.ServiceListItems.SingleOrDefaultAsync(i => i.Id == serviceListItemToUpdate.Id);
 
             if (ServiceListItem == null)
             {
-                return NotFound(new { Message = $"Item with id {productToUpdate.Id} not found." });
+                return NotFound(new { Message = $"Item with id {serviceListItemToUpdate.Id} not found." });
             }
 
             var oldPrice = ServiceListItem.Price;
-            var raiseProductPriceChangedEvent = oldPrice != productToUpdate.Price;
+            var raiseserviceListItemPriceChangedEvent = oldPrice != serviceListItemToUpdate.Price;
 
-            // Update current product
-            ServiceListItem = productToUpdate;
+            // Update current serviceListItem
+            ServiceListItem = serviceListItemToUpdate;
             _serviceListContext.ServiceListItems.Update(ServiceListItem);
 
-            if (raiseProductPriceChangedEvent) // Save product's data and publish integration event through the Event Bus if price has changed
+            if (raiseserviceListItemPriceChangedEvent) // Save serviceListItem's data and publish integration event through the Event Bus if price has changed
             {
                 //Create Integration Event to be published through the Event Bus
-                var priceChangedEvent = new ProductPriceChangedIntegrationEvent(ServiceListItem.Id, productToUpdate.Price, oldPrice);
+                var priceChangedEvent = new ServiceListPriceChangedIntegrationEvent(ServiceListItem.Id, serviceListItemToUpdate.Price, oldPrice);
 
                 // Achieving atomicity between original Catalog database operation and the IntegrationEventLog thanks to a local transaction
                 await _catalogIntegrationEventService.SaveEventAndServiceListContextChangesAsync(priceChangedEvent);
@@ -199,29 +159,28 @@ namespace ServiceListAPI.Controllers
                 // Publish through the Event Bus and mark the saved event as published
                 await _catalogIntegrationEventService.PublishThroughEventBusAsync(priceChangedEvent);
             }
-            else // Just save the updated product because the Product's Price hasn't changed.
+            else // Just save the updated serviceListItem because the serviceListItem's Price hasn't changed.
             {
                 await _serviceListContext.SaveChangesAsync();
             }
 
-            return CreatedAtAction(nameof(ItemByIdAsync), new { id = productToUpdate.Id }, null);
+            return CreatedAtAction(nameof(ItemByIdAsync), new { id = serviceListItemToUpdate.Id }, null);
         }
 
         //POST api/v1/[controller]/items
         [Route("items")]
         [HttpPost]
         [ProducesResponseType((int)HttpStatusCode.Created)]
-        public async Task<ActionResult> CreateProductAsync([FromBody] ServiceListItem product)
+        public async Task<ActionResult> CreateserviceListItemAsync([FromBody] ServiceListItem serviceListItem)
         {
             var item = new ServiceListItem
             {
-                Description = product.Description,
-                Name = product.Name,
-                Price = product.Price
+                Description = serviceListItem.Description,
+                Name = serviceListItem.Name,
+                Price = serviceListItem.Price
             };
 
             _serviceListContext.ServiceListItems.Add(item);
-
             await _serviceListContext.SaveChangesAsync();
 
             return CreatedAtAction(nameof(ItemByIdAsync), new { id = item.Id }, null);
@@ -232,17 +191,16 @@ namespace ServiceListAPI.Controllers
         [HttpDelete]
         [ProducesResponseType((int)HttpStatusCode.NoContent)]
         [ProducesResponseType((int)HttpStatusCode.NotFound)]
-        public async Task<ActionResult> DeleteProductAsync(int id)
+        public async Task<ActionResult> DeleteserviceListItemAsync(int id)
         {
-            var product = _serviceListContext.ServiceListItems.SingleOrDefault(x => x.Id == id);
+            var serviceListItem = _serviceListContext.ServiceListItems.SingleOrDefault(x => x.Id == id);
 
-            if (product == null)
+            if (serviceListItem == null)
             {
                 return NotFound();
             }
 
-            _serviceListContext.ServiceListItems.Remove(product);
-
+            _serviceListContext.ServiceListItems.Remove(serviceListItem);
             await _serviceListContext.SaveChangesAsync();
 
             return NoContent();

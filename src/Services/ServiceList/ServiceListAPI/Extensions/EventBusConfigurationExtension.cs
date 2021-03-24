@@ -11,8 +11,8 @@ namespace ServiceListAPI.Extensions
         public static IApplicationBuilder ConfigureEventBus(this IApplicationBuilder app)
         {
             var eventBus = app.ApplicationServices.GetRequiredService<IEventBus>();
-            eventBus.Subscribe<OrderStatusChangedToAwaitingValidationIntegrationEvent, OrderStatusChangedToAwaitingValidationIntegrationEventHandler>();
-            eventBus.Subscribe<OrderStatusChangedToPaidIntegrationEvent, OrderStatusChangedToPaidIntegrationEventHandler>();
+            eventBus.Subscribe<ServiceListPriceChangedIntegrationEvent, ServiceListPriceChangeIntegrationEventHandler>();
+            eventBus.Subscribe<BonusActivatedIntegrationEvent, BonsuActivatedIntegrationEventHandler>();
             return app;
         }
     }

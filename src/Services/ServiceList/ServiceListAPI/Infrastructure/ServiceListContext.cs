@@ -11,6 +11,7 @@
         {
         }
         public DbSet<ServiceListItem> ServiceListItems { get; set; }
+        public DbSet<ServiceListItemPromo> ServiceListItemPromos { get; set; }
 
         protected override void OnModelCreating(ModelBuilder builder)
         {

@@ -3,7 +3,7 @@ using TheRoom.BuildingBlocks.EventBus.Events;
 
 namespace ServiceListAPI.IntegrationEvents
 {
-    public interface ICatalogIntegrationEventService
+    public interface IServiceListIntegrationEventService
     {
         Task SaveEventAndServiceListContextChangesAsync(IntegrationEvent evt);
         Task PublishThroughEventBusAsync(IntegrationEvent evt);

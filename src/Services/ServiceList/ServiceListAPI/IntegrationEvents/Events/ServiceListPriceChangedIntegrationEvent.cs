@@ -2,17 +2,17 @@
 {
     using TheRoom.BuildingBlocks.EventBus.Events;
 
-    public record ProductPriceChangedIntegrationEvent : IntegrationEvent
+    public record ServiceListPriceChangedIntegrationEvent : IntegrationEvent
     {
-        public int ProductId { get; private init; }
+        public int ServiceListId { get; private init; }
 
         public decimal NewPrice { get; private init; }
 
         public decimal OldPrice { get; private init; }
 
-        public ProductPriceChangedIntegrationEvent(int productId, decimal newPrice, decimal oldPrice)
+        public ServiceListPriceChangedIntegrationEvent(int serviceListId, decimal newPrice, decimal oldPrice)
         {
-            ProductId = productId;
+            ServiceListId = serviceListId;
             NewPrice = newPrice;
             OldPrice = oldPrice;
         }
