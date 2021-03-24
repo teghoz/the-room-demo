@@ -13,7 +13,7 @@ docker-compose up
 ```
 
 ### Project Structure
-I have approached the problem in both a [microservices](/SRC) and [monolithic](/TheRoomSimpleAPI) way.
+I have approached the problem in both a [microservices](/src) and [monolithic](/TheRoomSimpleAPI) way.
 
 ### Monolithic Approach
 Once the container is loaded up, you can get access to the [`TheRoomSimpleAPI`](/TheRoomSimpleAPI) service. It is standalone and performs all its activity itself. You would have to use the `/api/v1/Auth/Register` endpoint to get registered and logged in. An unthentication token would be provided in the response which you would use to access the other endpoints.
