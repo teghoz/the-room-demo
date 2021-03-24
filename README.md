@@ -35,10 +35,18 @@ In this approach I have splitted out the concerns into different isolated servic
 
 #### Frontend Client - React
 - [React](src/Web/the-room) - The react app gets authorized by the identity server and stores its token in `localStorage`. With that it gets access to the  [ServiceList Service](/src/Services/ServiceList) which provides information about the service lists. 
-*Do note that i did not spend alot of time on the aesthetics*
+
+
+##### Auth service in action
+![](/Images/auth-service-in-action.png)
+
+##### React app
+
+![](/Images/react-app.png)
+
+*Do note that i did not spend alot of time on the aesthetics as a result of time constraint*
 
 I have also showcased [Unit Testing](/src/Services/ServiceList/tests/ServiceList.UnitTests) and [Integration Testing](/src/Services/ServiceList/tests/ServiceList.FunctionalTests) for the ServiceListAPI Services.
-
 
 ---
 
