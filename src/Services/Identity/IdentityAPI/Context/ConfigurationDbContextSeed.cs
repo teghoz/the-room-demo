@@ -16,9 +16,9 @@ namespace IdentityAPI.Context
         {
             var clientUrls = new Dictionary<string, string>();
 
-            clientUrls.Add("Spa", configuration.GetValue<string>("SpaClient"));
-            clientUrls.Add("ServiceListApi", configuration.GetValue<string>("ServiceListApiClient"));
-            clientUrls.Add("BonusApi", configuration.GetValue<string>("BonusApiClient"));
+            clientUrls.Add("Spa", configuration.GetValue<string>("spaClient"));
+            clientUrls.Add("ServiceListApi", configuration.GetValue<string>("serviceListClient"));
+            clientUrls.Add("BonusApi", configuration.GetValue<string>("bonusAPIClient"));
 
             if (!context.Clients.Any())
             {

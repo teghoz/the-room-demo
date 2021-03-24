@@ -12,7 +12,6 @@ using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Diagnostics.HealthChecks;
 using StackExchange.Redis;
 using System;
-using System.Reflection;
 
 namespace IdentityAPI.Extensions.Service
 {
