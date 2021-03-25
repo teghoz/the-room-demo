@@ -4,5 +4,83 @@
         <name>TheRoomSimpleAPI</name>
     </assembly>
     <members>
+        <member name="M:TheRoomSimpleAPI.Controllers.AuthController.Register(TheRoomSimpleAPI.Model.Requests.RegisterRequests)">
+            <summary>
+            Register A New User
+            </summary>
+            <param name="model"></param>
+            <returns></returns>
+        </member>
+        <member name="M:TheRoomSimpleAPI.Controllers.AuthController.Login(TheRoomSimpleAPI.Model.Requests.LoginRequest)">
+            <summary>
+            User Login
+            </summary>
+            <param name="model"></param>
+            <returns></returns>
+        </member>
+        <member name="M:TheRoomSimpleAPI.Controllers.AuthController.Logout">
+            <summary>
+            Logout the user
+            </summary>
+            <returns></returns>
+        </member>
+        <member name="M:TheRoomSimpleAPI.Controllers.BonusController.ActivePromos(System.Int32,System.Int32)">
+            <summary>
+            Active Promos
+            </summary>
+            <param name="model"></param>
+            <returns></returns>
+        </member>
+        <member name="M:TheRoomSimpleAPI.Controllers.BonusController.Post(TheRoomSimpleAPI.Model.Requests.BonusRequests)">
+            <summary>
+            Activate a Bonus
+            </summary>
+            <param name="model"></param>
+            <returns></returns>
+        </member>
+        <member name="M:TheRoomSimpleAPI.Controllers.ServiceListController.ItemsWithNameAsync(System.String,System.Int32,System.Int32)">
+            <summary>
+            Get Service List Items
+            </summary>
+            <param name="name"></param>
+            <param name="pageSize"></param>
+            <param name="pageIndex"></param>
+            <returns></returns>
+        </member>
+        <member name="M:TheRoomSimpleAPI.Controllers.ServiceListController.UpdateserviceListItemAsync(TheRoomSimpleAPI.Model.ServiceListItem)">
+            <summary>
+            Update a Service List Item
+            </summary>
+            <param name="serviceListItemToUpdate"></param>
+            <returns></returns>
+        </member>
+        <member name="M:TheRoomSimpleAPI.Controllers.ServiceListController.CreateServiceListItemAsync(TheRoomSimpleAPI.Model.Requests.ServiceListRequests)">
+            <summary>
+            Create a Service List Item
+            </summary>
+            <param name="serviceListItem"></param>
+            <returns></returns>
+        </member>
+        <member name="M:TheRoomSimpleAPI.Controllers.ServiceListController.ServiceListItemAsync(System.Int32,System.Int32,System.Int32)">
+            <summary>
+            ServiceListItem Promos
+            </summary>
+            <param name="serviceListItem"></param>
+            <returns></returns>
+        </member>
+        <member name="M:TheRoomSimpleAPI.Controllers.ServiceListController.AddAPromoCodeToServiceListItemAsync(System.Int32,TheRoomSimpleAPI.Model.Requests.PromoRequests)">
+            <summary>
+            Add Promocode to ServiceListItem
+            </summary>
+            <param name="serviceListItem"></param>
+            <returns></returns>
+        </member>
+        <member name="M:TheRoomSimpleAPI.Controllers.ServiceListController.DeleteserviceListItemAsync(System.Int32)">
+            <summary>
+            Delete a Service List Item
+            </summary>
+            <param name="id"></param>
+            <returns></returns>
+        </member>
     </members>
 </doc>

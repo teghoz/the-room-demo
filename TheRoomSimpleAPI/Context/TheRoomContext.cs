@@ -32,10 +32,9 @@ namespace TheRoomSimpleAPI.Context
         {
         }
 
-
         public DbSet<ServiceListItem> tblServiceListItems { get; set; }
         public DbSet<ServiceListItemPromo> tblServiceListItemPromos { get; set; }
-        public DbSet<PromoUsers> tblServiceProvider { get; set; }
+        public DbSet<PromoUsers> tblPromoUsers { get; set; }
 
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {

@@ -36,7 +36,11 @@ namespace TheRoomSimpleAPI.Controllers
             _context = context;
             _settings = settings.Value;
         }
-
+        /// <summary>
+        /// Register A New User
+        /// </summary>
+        /// <param name="model"></param>
+        /// <returns></returns>
         [HttpPost("Register")]
         public async Task<IActionResult> Register(RegisterRequests model)
         {
@@ -71,6 +75,11 @@ namespace TheRoomSimpleAPI.Controllers
             return BadRequest(ModelState);
             
         }
+        /// <summary>
+        /// User Login
+        /// </summary>
+        /// <param name="model"></param>
+        /// <returns></returns>
         [HttpPost("Login")]
         public async Task<IActionResult> Login(LoginRequest model)
         {
@@ -90,17 +99,28 @@ namespace TheRoomSimpleAPI.Controllers
                             });
                     var tokenString = await LogUser(_settings, currentUser);
 
-
-                    return Ok(new AuthResponse
-                    {
+                    return Ok(new Response<AuthResponse>(new AuthResponse {
                         Email = currentUser.Email,
                         FullName = currentUser.FullName,
                         Token = tokenString
-                    });
+                    }));
                 }
                 return BadRequest("Ooops!!! Something went wrong");
             }
             return BadRequest(ModelState);
+        }
+        /// <summary>
+        /// Logout the user
+        /// </summary>
+        /// <returns></returns>
+        [HttpPost("Logout")]
+        public async Task<IActionResult> Logout()
+        {
+            if (HttpContext.User.Identity.IsAuthenticated)
+            {
+                await _signInManager.SignOutAsync();
+            }
+            return Ok();
         }
         private async Task<string> LogUser(ApplicationSettings settings, ApplicationUser user)
         {
@@ -133,14 +153,6 @@ namespace TheRoomSimpleAPI.Controllers
 
             return tokenString;
         }
-        [HttpPost("Logout")]
-        public async Task<IActionResult> Logout()
-        {
-            if (HttpContext.User.Identity.IsAuthenticated)
-            {
-                await _signInManager.SignOutAsync();
-            }
-            return Ok();
-        }
+        
     }
 }

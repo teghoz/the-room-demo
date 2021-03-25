@@ -1,6 +1,6 @@
 # the-room-demo
 
-Instructions and Questions [here](Question.md).
+Instructions and Questions [here](Questions.md).
 
 Here are my [answers](Answers.md) :ok_hand:.
 
@@ -19,6 +19,11 @@ I have approached the problem in both a [microservices](/src) and [monolithic](/
 
 ### Monolithic Approach
 Once the container is loaded up :rocket:, you can get access to the [`TheRoomSimpleAPI`](/TheRoomSimpleAPI) service. It is standalone and performs all its activity itself. You would have to use the `/api/v1/Auth/Register` endpoint to get registered and logged in. An unthentication token would be provided in the response which you would use to access the other endpoints. It has its swagger documentation so you would have a means to see all the available options and test it directly.
+
+##### Simple API in action
+![](/Images/simple-api.png)
+*You have to pass in a bearer token to access the endpoint sitting behind authentication*.
+All you have to do is insert `Bearer eyuuiouio..............` into the modal that comes up after clicking on the padlock icon on the endpoint you want to access or you can use the authorized button above.
 
 ### Microservices Approach
 In this approach I have splitted out the concerns into different isolated services. The following are the services:
@@ -41,6 +46,8 @@ In this approach I have splitted out the concerns into different isolated servic
 ##### React app
 ![](/Images/react-app.png)
 
+*Do note that i did not spend alot of time on the aesthetics as a result of time constraint*
+
 ##### Auth service in action
 ![](/Images/auth-service-in-action.png)
 
@@ -50,7 +57,6 @@ In this approach I have splitted out the concerns into different isolated servic
 ##### ServiceListAPI Sample Request
 ![](/Images/end-point-in-action.png)
 
-*Do note that i did not spend alot of time on the aesthetics as a result of time constraint*
 
 #### Testing
 I have also showcased [Unit Testing](/src/Services/ServiceList/tests/ServiceList.UnitTests) and [Integration Testing](/src/Services/ServiceList/tests/ServiceList.FunctionalTests) for the ServiceListAPI Services.
@@ -59,3 +65,6 @@ I have use [AutoFixture](https://github.com/AutoFixture/AutoFixture) to mock sam
 
 
 
+##### Outstandings
+- [ ] Bonus API Service
+- [ ] Aesthetics Improvements

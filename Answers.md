@@ -2,7 +2,7 @@
 #### How do you document code?
 Although some on the development side of the aisle would argue that good documentation would lead to job insecurity :laughing:, Good Documentation is vital, especially when speed to market and scalability is of utmost importance. Imagine a new resource joining, and that person has to navigate through the existing code base, for example. 
 
-Markdowns are one way I achieve this :heavy_check_mark:. There are other tools like confluence too. My current organization uses this. One straightforward way to also do this is to stick with conventions. Once everyone is familiar with a chosen pattern, you have already documented your code without typing extra information.
+Markdowns are one way I achieve this :heavy_check_mark:. There are other tools like confluence too. My current organization uses this. One straightforward way to also do this is to stick with conventions. Once everyone is familiar with a chosen pattern, you have already documented your code without typing extra information. I also use XML commenting on code which provides good docuementations that IDEs can pick up too. 
 
 #### What are your thoughts on unit testing?
 As systems begin to scale, the introduction of new code has the potential to introduce side effects. Side effects that one might not be thinking about when the new addition is commited to the codebase. Unit testing helps reduce these problems - regressions :boom: :exclamation:. 

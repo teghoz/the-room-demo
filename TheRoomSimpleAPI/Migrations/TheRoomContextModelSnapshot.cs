@@ -244,7 +244,7 @@ namespace TheRoomSimpleAPI.Migrations
 
                     b.HasIndex("PromoId");
 
-                    b.ToTable("tblServiceProvider");
+                    b.ToTable("tblPromoUsers");
                 });
 
             modelBuilder.Entity("TheRoomSimpleAPI.Model.ServiceListItem", b =>
@@ -360,7 +360,7 @@ namespace TheRoomSimpleAPI.Migrations
             modelBuilder.Entity("TheRoomSimpleAPI.Model.PromoUsers", b =>
                 {
                     b.HasOne("TheRoomSimpleAPI.Model.ServiceListItemPromo", "Promo")
-                        .WithMany()
+                        .WithMany("ActivatedUsers")
                         .HasForeignKey("PromoId");
 
                     b.Navigation("Promo");
@@ -378,6 +378,11 @@ namespace TheRoomSimpleAPI.Migrations
             modelBuilder.Entity("TheRoomSimpleAPI.Model.ServiceListItem", b =>
                 {
                     b.Navigation("PromoCodes");
+                });
+
+            modelBuilder.Entity("TheRoomSimpleAPI.Model.ServiceListItemPromo", b =>
+                {
+                    b.Navigation("ActivatedUsers");
                 });
 #pragma warning restore 612, 618
         }

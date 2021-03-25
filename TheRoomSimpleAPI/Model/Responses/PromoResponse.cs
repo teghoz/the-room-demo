@@ -1,9 +1,8 @@
-﻿using System;
-using System.Collections.Generic;
+using System;
 
-namespace TheRoomSimpleAPI.Model
+namespace TheRoomSimpleAPI.Model.Responses
 {
-    public class ServiceListItemPromo
+    public class PromoResponse
     {
         public int Id { get; set; }
         public string Name { get; set; }
@@ -12,7 +11,5 @@ namespace TheRoomSimpleAPI.Model
         public bool UsePercentage { get; set; }
         public decimal Discount { get; set; }
         public double DiscountPercentage { get; set; }
-        public virtual ServiceListItem ServiceListItem { get; set; }
-        public virtual List<PromoUsers> ActivatedUsers { get; set; }
     }
 }

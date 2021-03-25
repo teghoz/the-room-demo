@@ -6,16 +6,16 @@ namespace TheRoomSimpleAPI.UnitOfWork
 {
     public partial class UnitOfWork : IDisposable
     {
-        private TheRoomRepository<ServiceListItemPromo> serviceListItemPromoRepository;
-        public TheRoomRepository<ServiceListItemPromo> ServiceListItemRepository
+        private TheRoomRepository<ServiceListItemPromo> serviceListPromoRepository;
+        public TheRoomRepository<ServiceListItemPromo> ServiceLisPromoRepository
         {
             get
             {
-                if (serviceListItemPromoRepository == null)
+                if (serviceListPromoRepository == null)
                 {
-                    serviceListItemPromoRepository = new TheRoomRepository<ServiceListItemPromo>(context);
+                    serviceListPromoRepository = new TheRoomRepository<ServiceListItemPromo>(context);
                 }
-                return serviceListItemPromoRepository;
+                return serviceListPromoRepository;
             }
         }
     }

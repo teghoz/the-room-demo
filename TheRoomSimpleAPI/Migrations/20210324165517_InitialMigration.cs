@@ -197,7 +197,7 @@ namespace TheRoomSimpleAPI.Migrations
                 });
 
             migrationBuilder.CreateTable(
-                name: "tblServiceProvider",
+                name: "tblPromoUsers",
                 columns: table => new
                 {
                     Id = table.Column<int>(type: "int", nullable: false)
@@ -208,9 +208,9 @@ namespace TheRoomSimpleAPI.Migrations
                 },
                 constraints: table =>
                 {
-                    table.PrimaryKey("PK_tblServiceProvider", x => x.Id);
+                    table.PrimaryKey("PK_tblPromoUsers", x => x.Id);
                     table.ForeignKey(
-                        name: "FK_tblServiceProvider_tblServiceListItemPromos_PromoId",
+                        name: "FK_tblPromoUsers_tblServiceListItemPromos_PromoId",
                         column: x => x.PromoId,
                         principalTable: "tblServiceListItemPromos",
                         principalColumn: "Id",
@@ -257,14 +257,14 @@ namespace TheRoomSimpleAPI.Migrations
                 filter: "[NormalizedUserName] IS NOT NULL");
 
             migrationBuilder.CreateIndex(
+                name: "IX_tblPromoUsers_PromoId",
+                table: "tblPromoUsers",
+                column: "PromoId");
+
+            migrationBuilder.CreateIndex(
                 name: "IX_tblServiceListItemPromos_ServiceListItemId",
                 table: "tblServiceListItemPromos",
                 column: "ServiceListItemId");
-
-            migrationBuilder.CreateIndex(
-                name: "IX_tblServiceProvider_PromoId",
-                table: "tblServiceProvider",
-                column: "PromoId");
         }
 
         protected override void Down(MigrationBuilder migrationBuilder)
@@ -285,7 +285,7 @@ namespace TheRoomSimpleAPI.Migrations
                 name: "AspNetUserTokens");
 
             migrationBuilder.DropTable(
-                name: "tblServiceProvider");
+                name: "tblPromoUsers");
 
             migrationBuilder.DropTable(
                 name: "AspNetRoles");
