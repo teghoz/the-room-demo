@@ -3,7 +3,9 @@ using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
 using System;
+using System.Collections.Generic;
 using System.Threading.Tasks;
+using TheRoomSimpleAPI.Model;
 
 namespace TheRoomSimpleAPI.Context
 {
@@ -54,9 +56,9 @@ namespace TheRoomSimpleAPI.Context
                     new ServiceListItem { Description = "Razor things", Name = "razor.io", Price = 12 },
                 };
 
-                items.foreach(item => new {
-                    await _context.tblServiceListItems.Add(item);
-                    await _context.SaveChangesAsync();
+                items.ForEach(item => {
+                    context.tblServiceListItems.Add(item);
+                    context.SaveChangesAsync();
                 });
             }  
         }
