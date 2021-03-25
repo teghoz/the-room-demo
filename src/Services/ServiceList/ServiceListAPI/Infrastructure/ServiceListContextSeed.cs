@@ -93,8 +93,17 @@
             return new List<ServiceListItem>()
             {
                 new ServiceListItem { Description = "Fox Sports", Name = "foxsport.com", Price = 19.5M },
-                new ServiceListItem { Description = "Oracle things", Name = "java.io", Price= 8.50M },
+                new ServiceListItem { Description = "Oracle things", Name = "oracle.io", Price= 8.50M },
                 new ServiceListItem { Description = "Swagger things", Name = "swagger.io", Price = 12 },
+                new ServiceListItem { Description = "Hangfire Sports", Name = "hangfire.com", Price = 19.5M },
+                new ServiceListItem { Description = "Workkers things", Name = "worker.io", Price= 8.50M },
+                new ServiceListItem { Description = "Test Host things", Name = "testhost.io", Price = 12 },
+                new ServiceListItem { Description = "Fox Sports", Name = "foxsport.com", Price = 19.5M },
+                new ServiceListItem { Description = "Java things", Name = "java.io", Price= 8.50M },
+                new ServiceListItem { Description = "PHP things", Name = "php.com", Price = 12 },
+                new ServiceListItem { Description = "Azure Service", Name = "azure.com", Price = 19.5M },
+                new ServiceListItem { Description = "Kubernetes things", Name = "kubernetes.io", Price= 8.50M },
+                new ServiceListItem { Description = "Razor things", Name = "razor.io", Price = 12 },
             };
         }
         private string[] GetHeaders(string csvfile, string[] requiredHeaders, string[] optionalHeaders = null)

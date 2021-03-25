@@ -13,6 +13,14 @@ services:
   rabbitmq:
     image: rabbitmq:3-management-alpine
 
+  simple-api:
+    image: ${REGISTRY:-the-room}/simple-api:${PLATFORM:-linux}-${TAG:-latest}
+    build:
+      context: .
+      dockerfile: Simple/TheRoomSimpleAPI/Dockerfile
+    depends_on:
+      - sqldata
+
   identity-api:
     image: ${REGISTRY:-the-room}/identity-api:${PLATFORM:-linux}-${TAG:-latest}
     build:

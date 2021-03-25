@@ -15,8 +15,11 @@ COPY "BuildingBlocks/EventBus/IntegrationEventLogEF/IntegrationEventLogEF.csproj
 COPY "BuildingBlocks/WebHostCustomization/WebHost.Customization/WebHost.Customization.csproj" "BuildingBlocks/WebHostCustomization/WebHost.Customization/WebHost.Customization.csproj"
 COPY "Services/Bonus/BonusAPI/BonusAPI.csproj" "Services/Bonus/BonusAPI/BonusAPI.csproj"
 COPY "Services/ServiceList/ServiceListAPI/ServiceListAPI.csproj" "Services/ServiceList/ServiceListAPI/ServiceListAPI.csproj"
+COPY "Services/ServiceList/tests/ServiceList.FunctionalTests/ServiceList.FunctionalTests.csproj" "Services/ServiceList/tests/ServiceList.FunctionalTests/ServiceList.FunctionalTests.csproj"
+COPY "Services/ServiceList/tests/ServiceList.UnitTests/ServiceList.UnitTests.csproj" "Services/ServiceList/tests/ServiceList.UnitTests/ServiceList.UnitTests.csproj"
 COPY "Services/Identity/IdentityAPI/IdentityAPI.csproj" "Services/Identity/IdentityAPI/IdentityAPI.csproj"
 COPY "Web/WebStatus/WebStatus.csproj" "Web/WebStatus/WebStatus.csproj"
+COPY "Simple/TheRoomSimpleAPI/TheRoomSimpleAPI.csproj" "Simple/TheRoomSimpleAPI/TheRoomSimpleAPI.csproj"
 
 COPY "docker-compose.dcproj" "docker-compose.dcproj"
 COPY "NuGet.config" "NuGet.config"

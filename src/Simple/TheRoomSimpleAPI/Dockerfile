@@ -26,7 +26,7 @@ COPY "NuGet.config" "NuGet.config"
 
 RUN dotnet restore "TheRoom.sln"
 COPY . .
-WORKDIR /src/Services/Identity/IdentityAPI
+WORKDIR /src/Simple/TheRoomSimpleAPI
 RUN dotnet publish --no-restore -c Release -o /app
 
 FROM build AS publish
@@ -34,4 +34,4 @@ FROM build AS publish
 FROM base AS final
 WORKDIR /app
 COPY --from=publish /app .
-ENTRYPOINT ["dotnet", "IdentityAPI.dll"]
+ENTRYPOINT ["dotnet", "TheRoomSimpleAPI.dll"]

@@ -26,6 +26,15 @@ services:
     ports:
       - "16672:15672"
       - "6672:5672"
+  
+  simple-api:
+    environment:
+      - ASPNETCORE_ENVIRONMENT=Development
+      - ASPNETCORE_URLS=http://0.0.0.0:80
+      - SpaClient=http://${THE_ROOM_EXTERNAL_DNS_NAME_OR_IP}:6304
+      - ConnectionString=${THE_ROOM_AZURE_IDENTITY_DB:-Server=sqldata;Database=TheRoom.Service.SimpleDb;User Id=sa;Password=Pass@word}
+    ports:
+      - "6305:80"
 
   identity-api:
     environment:
@@ -33,7 +42,7 @@ services:
       - ASPNETCORE_URLS=http://0.0.0.0:80
       - SpaClient=http://${THE_ROOM_EXTERNAL_DNS_NAME_OR_IP}:6104
       - ConnectionString=${THE_ROOM_AZURE_IDENTITY_DB:-Server=sqldata;Database=TheRoom.Service.IdentityDb;User Id=sa;Password=Pass@word}
-      - OrderingApiClient=http://${THE_ROOM_EXTERNAL_DNS_NAME_OR_IP}:5102
+      - BonusApiClient=http://${THE_ROOM_EXTERNAL_DNS_NAME_OR_IP}:5102
       - UseCustomizationData=True
       - ApplicationInsights__InstrumentationKey=${INSTRUMENTATION_KEY}
       - OrchestratorType=${ORCHESTRATOR_TYPE}
