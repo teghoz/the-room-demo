@@ -23,7 +23,7 @@ namespace TheRoomSimpleAPI.Context
             _roleManager = provider.GetRequiredService<RoleManager<IdentityRole>>();
             _hostingEnvironment = provider.GetRequiredService<IHost>();
         }
-        public static async Task<IHost> YoodaloSeedAsync(this IHost host)
+        public static async Task<IHost> TheRoomSeedAsync(this IHost host)
         {
             using (var scope = host.Services.CreateScope())
             {

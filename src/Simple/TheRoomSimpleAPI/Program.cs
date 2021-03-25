@@ -1,5 +1,6 @@
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.Extensions.Hosting;
+using TheRoomSimpleAPI.Context;
 
 namespace TheRoomSimpleAPI
 {
@@ -7,7 +8,7 @@ namespace TheRoomSimpleAPI
     {
         public static void Main(string[] args)
         {
-            CreateHostBuilder(args).Build().Run();
+            CreateHostBuilder(args).Build().TheRoomSeedAsync().Result.Run();
         }
 
         public static IHostBuilder CreateHostBuilder(string[] args) =>
