@@ -20,6 +20,8 @@
     {
         public async Task SeedAsync(ServiceListContext context, IWebHostEnvironment env, IOptions<ServiceListSettings> settings, ILogger<ServiceListContextSeed> logger)
         {
+            context.Database.EnsureCreated();
+
             var policy = CreatePolicy(logger, nameof(ServiceListContextSeed));
 
             await policy.ExecuteAsync(async () =>
