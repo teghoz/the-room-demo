@@ -1,0 +1,45 @@
+version: '3.4'
+
+services:
+  sql-data-test:
+    image: mcr.microsoft.com/mssql/server:2019-latest 
+
+  nosql-data-test:
+    image: mongo
+
+
+  rabbitmq-test:
+    image: rabbitmq:3-management-alpine
+
+  identity-api-test:
+    image: ${REGISTRY:-eshop}/identity-api-test:${TAG:-latest}
+    build:
+      context: .
+      dockerfile: Services/Identity/Identity.API/Dockerfile
+    depends_on:
+      - sql-data-test
+
+
+  catalog-api-functional-test:
+    image: ${REGISTRY:-eshop}/catalog-api-functional-test:${TAG:-latest}
+    build:
+      context: .
+      dockerfile: Services/Catalog/Catalog.API/Dockerfile
+      target: functionaltest
+    depends_on:
+      - sql-data-test
+      - rabbitmq-test
+    volumes:
+      - ${BUILD_ARTIFACTSTAGINGDIRECTORY:-./tests-results/}:/tests
+
+  catalog-api-unit-test:
+    image: ${REGISTRY:-eshop}/catalog-api-unit-test:${TAG:-latest}
+    build:
+      context: .
+      dockerfile: Services/Catalog/Catalog.API/Dockerfile
+      target: unittest
+    depends_on:
+      - sql-data-test
+      - rabbitmq-test
+    volumes:
+      - ${BUILD_ARTIFACTSTAGINGDIRECTORY:-./tests-results/}:/tests

@@ -1,0 +1,62 @@
+version: '3.4'
+
+services:
+
+  service-list-api:
+    environment:
+      - ASPNETCORE_ENVIRONMENT=Development
+      - ASPNETCORE_URLS=http://0.0.0.0:80
+      - ConnectionString=${THE_ROOM_AZURE_CATALOG_DB:-Server=sqldata;Database=TheRoom.Services.ServiceListDb;User Id=sa;Password=Pass@word}
+      - PicBaseUrl=${THE_ROOM_STORAGE_CATALOG_URL}
+      - EventBusConnection=${THE_ROOM_AZURE_SERVICE_BUS:-rabbitmq}
+      - EventBusUserName=${THE_ROOM_SERVICE_BUS_USERNAME}
+      - EventBusPassword=${THE_ROOM_SERVICE_BUS_PASSWORD}
+      - AzureStorageAccountName=${THE_ROOM_AZURE_STORAGE_CATALOG_NAME}
+      - AzureStorageAccountKey=${THE_ROOM_AZURE_STORAGE_CATALOG_KEY}
+      - UseCustomizationData=True
+      - AzureServiceBusEnabled=False
+      - AzureStorageEnabled=False
+      - ApplicationInsights__InstrumentationKey=${INSTRUMENTATION_KEY}
+      - OrchestratorType=${ORCHESTRATOR_TYPE}
+    ports:
+      - "80"   # The API Gateway redirects and access through the internal port (80).
+
+  identity-api:
+    environment:
+      - ASPNETCORE_ENVIRONMENT=Development
+      - ASPNETCORE_URLS=http://0.0.0.0:80
+      - SpaClient=http://${THE_ROOM_PROD_EXTERNAL_DNS_NAME_OR_IP}:5104
+      - ConnectionString=${THE_ROOM_AZURE_IDENTITY_DB:-Server=sqldata;Database=TheRoom.Service.IdentityDb;User Id=sa;Password=Pass@word}
+      - OrderingApiClient=http://${THE_ROOM_PROD_EXTERNAL_DNS_NAME_OR_IP}:5102
+      - UseCustomizationData=True
+      - ApplicationInsights__InstrumentationKey=${INSTRUMENTATION_KEY}
+      - OrchestratorType=${ORCHESTRATOR_TYPE}
+    ports:
+      - "5105:80"
+
+  webstatus:
+    environment:
+      - ASPNETCORE_ENVIRONMENT=Development
+      - ASPNETCORE_URLS=http://0.0.0.0:80
+      - ServiceListUrl=http://service-list-api/hc
+      - IdentityUrl=http://identity-api/hc
+      - ApplicationInsights__InstrumentationKey=${INSTRUMENTATION_KEY}
+      - OrchestratorType=${ORCHESTRATOR_TYPE}
+    ports:
+      - "5107:80"
+
+  sqldata:
+    environment:
+      - SA_PASSWORD=Pass@word
+      - ACCEPT_EULA=Y
+    ports:
+      - "5433:1433"    # Important: In a production environment your should remove the external port
+
+  nosqldata:
+    ports:
+      - "27017:27017"  # Important: In a production environment your should remove the external port
+
+  rabbitmq:
+    ports:
+      - "15672:15672"  # Important: In a production environment your should remove the external port
+      - "5672:5672"    # Important: In a production environment your should remove the external port

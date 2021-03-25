@@ -1,42 +1,70 @@
 # the-room-demo
 
-## instructions
-Option 1
-Questions:
-- How do you document your code?
-- What are your thoughts on unit testing?
-- What Design Patterns you have used in your projects?
-- What are the most important performance issues in ASP.Net web applications?
-Coding task:
-Develop an ASP.Net Core API for managing promo codes.
-Please use this layout as a reference
-https://www.figma.com/file/6J7oriX3K4zPLF2lrhfIvJ/front-end-test-prototype
-API should support the following functionality:
-● Ability to search services by name
-● Ability to Activate bonus for a Service for the current user
-● Infinite scroll for the Services list
-● An API user should be authorized.
-● Store data in any relational database, use EF Core to access data.
-● Use tests in your project.
-● The project should include a README.md with instructions on how to run it locally.
-Please push your results to GitHub and send us the link to the repository.
-Option 2
-Questions:
-- How do you document your code?
-- What are your thoughts on unit testing?
-- What Design Patterns you have used in your projects?
-- What do you think about Typescript?
-- What are the most important performance issues in React web applications?
-Coding task:
-Develop a React SPA application for managing promo codes.
-Please use this layout
-https://www.figma.com/file/6J7oriX3K4zPLF2lrhfIvJ/front-end-test-prototype and include the
-following functionality:
-● Ability to filter services by name.
-● Ability to reset filters.
-● Ability to copy promo code to the clipboard.
-● Ability to change service status to “Activated” by clicking on the “Activate bonus” button.
-● Please mock the API.
-The project should be built with webpack and include a README.md with instructions on how to
-run it locally.
-Please push your results to GitHub and send us the link to the repository.
+Instructions and Questions [here](Questions.md).
+
+Here are my [answers](Answers.md) :ok_hand:.
+
+
+## Getting Started
+
+Make sure you have [installed](https://docs.docker.com/docker-for-windows/install/) and [configured](https://github.com/dotnet-architecture/eShopOnContainers/wiki/Windows-setup#configure-docker) docker in your environment. After that, you can run the below commands from the [**/src/**](/src) directory and get started with the `TheRoomContainers` immediately.
+
+```powershell
+docker-compose build
+docker-compose up
+```
+
+### Project Structure
+I have approached the problem in both a [microservices](/src) and [monolithic](/TheRoomSimpleAPI) way.
+
+### Monolithic Approach
+Once the container is loaded up :rocket:, you can get access to the [`TheRoomSimpleAPI`](/TheRoomSimpleAPI) service. It is standalone and performs all its activity itself. You would have to use the `/api/v1/Auth/Register` endpoint to get registered and logged in. An unthentication token would be provided in the response which you would use to access the other endpoints. It has its swagger documentation so you would have a means to see all the available options and test it directly.
+
+##### Simple API in action
+![](/Images/simple-api.png)
+*You have to pass in a bearer token to access the endpoint sitting behind authentication*.
+All you have to do is insert `Bearer eyuuiouio..............` into the modal that comes up after clicking on the padlock icon on the endpoint you want to access or you can use the authorized button above.
+
+### Microservices Approach
+In this approach I have splitted out the concerns into different isolated services. The following are the services:
+
+- [Identity Server](/src/Services/Identity). Find out more [here](https://github.com/IdentityServer/IdentityServer4) and [here](https://identityserver4.readthedocs.io/en/latest/)
+
+- [ServiceList Service](/src/Services/ServiceList) - Which just handles the list of all services.
+- [Bonus Service](/src/Services/Bonus)
+- [RabbitMQ](https://github.com/rabbitmq/rabbitmq-dotnet-client/) - which servers as the message broker on development. 
+*Do note that you have to register a new user in order to use the functionality*
+
+- [Web Status](https://github.com/xabaril/AspNetCore.Diagnostics.HealthChecks) - Which polls the services to report health checks.
+- SQL Server - which houses some of the sevices databases.
+- [MongoDb](https://docs.mongodb.com/manual/) - which the bonus service would use.
+- [Seq](https://datalust.co/seq) - which handles logging
+
+#### Frontend Client - React
+- [React](src/Web/the-room) - The react app gets authorized by the identity server and stores its token in `localStorage`. With that it gets access to the  [ServiceList Service](/src/Services/ServiceList) which provides information about the service lists. 
+
+##### React app
+![](/Images/react-app.png)
+
+*Do note that i did not spend alot of time on the aesthetics as a result of time constraint*
+
+##### Auth service in action
+![](/Images/auth-service-in-action.png)
+
+##### ServiceListAPI Swagger
+![](/Images/service-list-swagger.png)
+
+##### ServiceListAPI Sample Request
+![](/Images/end-point-in-action.png)
+
+
+#### Testing
+I have also showcased [Unit Testing](/src/Services/ServiceList/tests/ServiceList.UnitTests) and [Integration Testing](/src/Services/ServiceList/tests/ServiceList.FunctionalTests) for the ServiceListAPI Services.
+
+I have use [AutoFixture](https://github.com/AutoFixture/AutoFixture) to mock sample data on the [Unit Test](/src/Services/ServiceList/tests/ServiceList.UnitTests) and the awesome [.Net TestHost](https://docs.microsoft.com/en-us/dotnet/api/microsoft.aspnetcore.testhost?view=aspnetcore-5.0) for integration testing.
+
+
+
+##### Outstandings
+- [ ] Bonus API Service
+- [ ] Aesthetics Improvements

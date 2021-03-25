@@ -5,9 +5,62 @@ body {
     sans-serif;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
+  background-color: #F5F7FA;
 }
 
 code {
   font-family: source-code-pro, Menlo, Monaco, Consolas, 'Courier New',
     monospace;
+}
+
+input, label {
+  display:block;
+}
+
+.input-group {
+  border-top-right-radius: 1;
+  border-bottom-right-radius: 1;
+}
+
+.input-group .btn{
+  font-weight: 500;
+}
+
+.input > span{
+  color: gray;
+}
+
+.nav{
+  align-content: center;
+}
+
+.navbar-brand{
+  text-align: center;
+}
+
+.navbar-dark .navbar-nav .nav-link {
+  color: #000;
+}
+
+.price-section{
+    position: absolute;
+    margin-left: 100px;
+    padding-left: 50px;
+}
+
+.price-section h6{
+  font-family: Rubik;
+  font-size: 19px;
+  font-style: normal;
+  font-weight: 400;
+  line-height: 26px;
+  letter-spacing: 0em;
+  text-align: left;
+}
+
+.services-description{
+    font-family: Roboto;
+    font-style: normal;
+    letter-spacing: 0em;
+    text-align: left;
 }

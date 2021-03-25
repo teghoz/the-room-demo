@@ -1,0 +1,27 @@
+version: '3.4'
+
+services:
+  sqldata:
+    image: mcr.microsoft.com/mssql/server:2019-latest 
+
+  nosqldata:
+    image: mongo:windowsservercore
+
+  rabbitmq:
+    image: spring2/rabbitmq
+
+  identity-api:
+    build:
+      args:
+        NODE_IMAGE: stefanscherer/node-windows:10
+
+  webspa:
+    build:
+      args:
+        NODE_IMAGE: stefanscherer/node-windows:10
+
+
+networks:
+  default:
+    external:
+      name: nat

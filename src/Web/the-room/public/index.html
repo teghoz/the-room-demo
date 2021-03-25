@@ -1,43 +1,140 @@
-<!DOCTYPE html>
+<!doctype html>
 <html lang="en">
   <head>
-    <meta charset="utf-8" />
-    <link rel="icon" href="%PUBLIC_URL%/favicon.ico" />
-    <meta name="viewport" content="width=device-width, initial-scale=1" />
-    <meta name="theme-color" content="#000000" />
-    <meta
-      name="description"
-      content="Web site created using create-react-app"
-    />
-    <link rel="apple-touch-icon" href="%PUBLIC_URL%/logo192.png" />
-    <!--
-      manifest.json provides metadata used when your web app is installed on a
-      user's mobile device or desktop. See https://developers.google.com/web/fundamentals/web-app-manifest/
-    -->
-    <link rel="manifest" href="%PUBLIC_URL%/manifest.json" />
-    <!--
-      Notice the use of %PUBLIC_URL% in the tags above.
-      It will be replaced with the URL of the `public` folder during the build.
-      Only files inside the `public` folder can be referenced from the HTML.
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="description" content="">
+    <meta name="author" content="The Room - Aghogho Bernard">
+    <title>The Room</title>
 
-      Unlike "/favicon.ico" or "favicon.ico", "%PUBLIC_URL%/favicon.ico" will
-      work correctly both with client-side routing and a non-root public URL.
-      Learn how to configure a non-root public URL by running `npm run build`.
-    -->
-    <title>React App</title>
+    <!-- Bootstrap core CSS -->
+    <link rel="stylesheet" href="https://unpkg.com/ionicons@4.5.10-0/dist/css/ionicons.min.css">
+    <link href="assets/dist/css/bootstrap.min.css" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Material+Icons">
+    <link href='https://fonts.googleapis.com/css?family=Roboto' rel='stylesheet'>
+    <link href='https://fonts.googleapis.com/css?family=Rubik' rel='stylesheet'>
+
+    <style>
+      .bd-placeholder-img {
+        font-size: 1.125rem;
+        text-anchor: middle;
+        -webkit-user-select: none;
+        -moz-user-select: none;
+        user-select: none;
+      }
+
+      #sidebarMenuw{
+        width: 12%;
+      }
+
+      .promo{
+        border-right: none;
+      }
+
+      .input-group-text {
+        border-left: none;
+        border-left-style: none;
+      }
+
+      @media (min-width: 768px) {
+        .bd-placeholder-img-lg {
+          font-size: 3.5rem;
+        }
+      }
+    </style>
+    
+    <!-- Custom styles for this template -->
+    <link href="assets/dashboard.css" rel="stylesheet">
+    <script src="https://code.iconify.design/1/1.0.7/iconify.min.js"></script>
   </head>
   <body>
-    <noscript>You need to enable JavaScript to run this app.</noscript>
-    <div id="root"></div>
-    <!--
-      This HTML file is a template.
-      If you open it directly in the browser, you will see an empty page.
+    
+  <header class="navbar navbar-dark sticky-top flex-md-nowrap p-0 shadow">
+    <a class="navbar-brand col-md-1 col-lg-1 me-0 px-3" href="#">
+      <svg width="27" height="40" viewBox="0 0 27 40" fill="none" xmlns="http://www.w3.org/2000/svg">
+        <path fill-rule="evenodd" clip-rule="evenodd" d="M26.0667 28.8071H19.2C18.611 28.8071 18.1334 28.3295 18.1334 27.7404C18.1334 27.1513 18.1334 22.4 18.1334 22.4H24.3938C24.687 22.4 24.9372 22.1881 24.9856 21.899L25.4095 19.3657C25.4707 18.9999 25.1886 18.6667 24.8177 18.6667H14.4C14.4 18.6667 14.4 25.0894 14.4 27.7404C14.4 30.3914 16.549 32.5404 19.2 32.5404H22.9334V35.3167C21.0862 36.0184 19.5055 36.2667 17.4687 36.2667C12.1509 36.2667 9.25863 33.4809 9.07609 28.2737C9.0213 26.7106 9.06669 25.6048 9.06669 18.6667H1.02409C0.730958 18.6667 0.480691 18.8785 0.432358 19.1677L0.00835795 21.701C-0.0527754 22.0668 0.229225 22.4 0.600158 22.4H5.33336L5.34189 28.2737C5.44376 31.7699 6.55136 34.7127 8.56203 36.7394C10.6782 38.8725 13.7581 40 17.4687 40C20.595 40 22.9638 39.4833 26.0547 38.0379C26.4288 37.8629 26.6667 37.4859 26.6667 37.0729V29.4071C26.6667 29.0757 26.3981 28.8071 26.0667 28.8071Z" fill="#0085FF"/>
+        <path fill-rule="evenodd" clip-rule="evenodd" d="M1.8497 14.9333H9.0667V6.92265L14.4 5.03405V14.9333H25.6426C25.9358 14.9333 26.186 14.7214 26.2344 14.4323L26.6583 11.899C26.7195 11.5332 26.4374 11.2 26.0665 11.2H18.1334V0.600448C18.1334 0.186248 17.7236 -0.103352 17.333 0.0349147L5.73303 4.14265C5.4935 4.22751 5.33337 4.45411 5.33337 4.70825V11.2H2.27363C1.9805 11.2 1.73023 11.4118 1.68183 11.701L1.25797 14.2343C1.1967 14.6001 1.47877 14.9333 1.8497 14.9333Z" fill="#0085FF"/>
+        </svg>        
+    </a>
+    <button class="navbar-toggler position-absolute d-md-none collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#sidebarMenu" aria-controls="sidebarMenu" aria-expanded="false" aria-label="Toggle navigation">
+      <span class="navbar-toggler-icon"></span>
+    </button>
+    <div class="price-section d-flex">
+      <div class="align-items-start px-2">
+        <small>Balance</small>
+        <h6>213 920 $</h6>
+      </div>
+      <div class="align-items-start">
+        <small>Payout</small>
+        <h6>213 920 $</h6>
+      </div>
+    </div>
+    <ul class="navbar-nav px-3">
+      <li class="nav-item text-nowrap">
+        <a class="btn btn-outline-default nav-link" onclick="localStorage.clear(); window.location.reload()">Sign out</a>
+      </li>
+    </ul>
+  </header>
 
-      You can add webfonts, meta tags, or analytics to this file.
-      The build step will place the bundled scripts into the <body> tag.
+  <div class="container-fluid">
+    <div class="row">
+      <nav id="sidebarMenu" class="col-md-2 col-lg-1 d-md-block bg-dark sidebar collapse">
+        <div class="position-sticky pt-3">
+          <ul class="nav flex-column">
+            <li class="nav-item">
+              <a class="nav-link active" aria-current="page" href="#">
+                <svg height="30" width="30">
+                  <circle cx="15" cy="15" r="10" stroke="white" stroke-width="3" fill="transparent"/>
+                </svg>
+              </a>
+            </li>
+            <li class="nav-item">
+              <a class="nav-link" href="#">
+                <svg height="30" width="30">
+                  <circle cx="15" cy="15" r="10" stroke="white" stroke-width="3" fill="transparent"/>
+                </svg>
+              </a>
+            </li>
+            <li class="nav-item">
+              <a class="nav-link" href="#">
+                <svg height="30" width="30">
+                  <circle cx="15" cy="15" r="10" stroke="white" stroke-width="3" fill="transparent"/>
+                </svg>
+              </a>
+            </li>
+            <li class="nav-item">
+              <a class="nav-link" href="#">
+                <svg height="30" width="30">
+                  <circle cx="15" cy="15" r="10" stroke="white" stroke-width="3" fill="transparent"/>
+                </svg>
+              </a>
+            </li>
+            <li class="nav-item">
+              <a class="nav-link" href="#">
+                <svg height="30" width="30">
+                  <circle cx="15" cy="15" r="10" stroke="white" stroke-width="3" fill="transparent"/>
+                </svg>
+              </a>
+            </li>
+            <li class="nav-item">
+              <a class="nav-link" href="#">
+                <svg height="30" width="30">
+                  <circle cx="15" cy="15" r="10" stroke="white" stroke-width="3" fill="transparent"/>
+                </svg>
+              </a>
+            </li>
+          </ul>
+        </div>
+      </nav>
 
-      To begin the development, run `npm start` or `yarn start`.
-      To create a production bundle, use `npm run build` or `yarn build`.
-    -->
+      <main class="col-md-10 ms-sm-auto col-lg-11 px-md-4">
+        <div id="root"></div>
+      </main>
+    </div>
+  </div>
+
+  <script src="assets/dist/js/bootstrap.bundle.min.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/feather-icons@4.28.0/dist/feather.min.js" integrity="sha384-uO3SXW5IuS1ZpFPKugNNWqTZRRglnUJK6UAZ/gxOX80nxEkN9NcGZTftn6RzhGWE" crossorigin="anonymous"></script><script src="https://cdn.jsdelivr.net/npm/chart.js@2.9.4/dist/Chart.min.js" integrity="sha384-zNy6FEbO50N+Cg5wap8IKA4M/ZnLJgzc6w2NqACZaK0u0FXfOWRRJOnQtpZun8ha" crossorigin="anonymous"></script><script src="dashboard.js"></script>
   </body>
 </html>
