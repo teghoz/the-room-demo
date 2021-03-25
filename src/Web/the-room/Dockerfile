@@ -6,9 +6,10 @@ EXPOSE 80
 
 FROM ${NODE_IMAGE} as node-build
 COPY Web/the-room/package.json .
-# COPY Web/the-room/package-lock.json .
+COPY Web/the-room/package-lock.json .
 COPY Web/the-room .
-RUN npm i react-scripts -g --silent
+RUN npm i react-scripts -g --silent 
+RUN npm install
 
 # start app
-CMD ["npm", "start"]
+CMD ["npm", "start"] 

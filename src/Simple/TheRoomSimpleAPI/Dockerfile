@@ -23,6 +23,7 @@ COPY "Simple/TheRoomSimpleAPI/TheRoomSimpleAPI.csproj" "Simple/TheRoomSimpleAPI/
 
 COPY "docker-compose.dcproj" "docker-compose.dcproj"
 COPY "NuGet.config" "NuGet.config"
+COPY "Simple/TheRoomSimpleAPI/TheRoomSimpleAPI.xml" "Simple/TheRoomSimpleAPI/TheRoomSimpleAPI.xml"
 
 RUN dotnet restore "TheRoom.sln"
 COPY . .
