@@ -23,6 +23,9 @@ services:
       - the-room-nosqldata:/data/db
 
   rabbitmq:
+    environment:
+      - RABBITMQ_DEFAULT_USER=the_room
+      - RABBITMQ_DEFAULT_PASS=Pass@word
     ports:
       - "16672:15672"
       - "6672:5672"
