@@ -34,6 +34,7 @@ In this approach I have splitted out the concerns into different isolated servic
 - [Bonus Service](/src/Services/Bonus)
 - [RabbitMQ](https://github.com/rabbitmq/rabbitmq-dotnet-client/) - which servers as the message broker on development. 
 *Do note that you have to register a new user in order to use the functionality*
+*Default Username is `the_root` and Password is `Pass@word`
 
 - [Web Status](https://github.com/xabaril/AspNetCore.Diagnostics.HealthChecks) - Which polls the services to report health checks.
 - SQL Server - which houses some of the sevices databases.

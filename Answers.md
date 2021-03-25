@@ -34,6 +34,6 @@ Since I come from a .NET and static typing background, I think very highly of it
 However, for large codebases, you want a way to catch issues, errors, and exceptions at compile time. Typescript provides you that luxury :rocket:. Additionally, it allows for a more profound use of OOP concepts.
 
 #### What are the most important performance issues in React web applications?
-Well, one issue that I have experience is the flawed architecture of components. It is not precisely a react problem per se, but since they do not have strict opinions on the solution, it causes problems. I don't know why they are yet to adopt the event emission like Vue and Angular. This uncertainty leads to prop drooling and makes the user-experience bad as objects keep moving up and down the tree. 
+Well, one issue that I have experience is the flawed architecture of components. It is not precisely a react problem per se, but since they do not have strict opinions on the solution, it causes problems. I don't know why they are yet to adopt the event emission like Vue and Angular. This uncertainty leads to prop drooling and makes the user-experience bad as objects keep moving up and down the tree. State Management (Flux, Redux et al.) helps though.
 
 There is always the question you need to ask every time, when is large *LARGE*?. The idea behind the use of components is reuse. However, it should be used in code organization which helps with readability. If a component is too large, it should be further decomposed regardless of whether it would be reused.
