@@ -4,6 +4,7 @@ using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
 using System;
 using System.Collections.Generic;
+using System.Linq;
 using System.Threading.Tasks;
 using TheRoomSimpleAPI.Model;
 
@@ -29,9 +30,9 @@ namespace TheRoomSimpleAPI.Context
             {
                 var services = scope.ServiceProvider;
                 Initialize(services);
+                await _context.Database.MigrateAsync();
                 await SeedDefaultAdmin(services);
                 await SeedServiceList(services);
-                await _context.Database.MigrateAsync();
             }
             return host;
         }
@@ -40,6 +41,8 @@ namespace TheRoomSimpleAPI.Context
         { 
             using (var context = provider.GetRequiredService<TheRoomContext>())
             {
+                context.Database.EnsureCreated();
+
                 var items = new List<ServiceListItem>()
                 {
                     new ServiceListItem { Description = "Fox Sports", Name = "foxsport.com", Price = 19.5M },
@@ -57,8 +60,12 @@ namespace TheRoomSimpleAPI.Context
                 };
 
                 items.ForEach(item => {
-                    context.tblServiceListItems.Add(item);
-                    context.SaveChangesAsync();
+                    if(context.tblServiceListItems.Any(s => s.Name == item.Name) == false)
+                    {
+                        context.tblServiceListItems.Add(item);
+                        context.SaveChangesAsync();
+                    }
+                    
                 });
             }  
         }
