@@ -34,11 +34,6 @@ namespace IdentityAPI.Context
                     context.Users.AddRange(useCustomizationData ? GetUsersFromFile(contentRootPath, logger) : GetDefaultUser());
                     await context.SaveChangesAsync();
                 }
-
-                if (useCustomizationData)
-                {
-                    GetPreconfiguredImages(contentRootPath, webroot, logger);
-                }
             }
             catch (Exception ex)
             {
@@ -169,46 +164,6 @@ namespace IdentityAPI.Context
             }
 
             return csvheaders;
-        }
-
-        static void GetPreconfiguredImages(string contentRootPath, string webroot, ILogger logger)
-        {
-            try
-            {
-                string imagesZipFile = Path.Combine(contentRootPath, "Setup", "images.zip");
-                if (!File.Exists(imagesZipFile))
-                {
-                    logger.LogError("Zip file '{ZipFileName}' does not exists.", imagesZipFile);
-                    return;
-                }
-
-                string imagePath = Path.Combine(webroot, "images");
-                string[] imageFiles = Directory.GetFiles(imagePath).Select(file => Path.GetFileName(file)).ToArray();
-
-                using (ZipArchive zip = ZipFile.Open(imagesZipFile, ZipArchiveMode.Read))
-                {
-                    foreach (ZipArchiveEntry entry in zip.Entries)
-                    {
-                        if (imageFiles.Contains(entry.Name))
-                        {
-                            string destinationFilename = Path.Combine(imagePath, entry.Name);
-                            if (File.Exists(destinationFilename))
-                            {
-                                File.Delete(destinationFilename);
-                            }
-                            entry.ExtractToFile(destinationFilename);
-                        }
-                        else
-                        {
-                            logger.LogWarning("Skipped file '{FileName}' in zipfile '{ZipFileName}'", entry.Name, imagesZipFile);
-                        }
-                    }
-                }
-            }
-            catch (Exception ex)
-            {
-                logger.LogError(ex, "EXCEPTION ERROR: {Message}", ex.Message); ;
-            }
         }
     }
 }

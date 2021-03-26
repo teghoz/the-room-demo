@@ -64,8 +64,8 @@ I have also showcased [Unit Testing](/src/Services/ServiceList/tests/ServiceList
 
 I have use [AutoFixture](https://github.com/AutoFixture/AutoFixture) to mock sample data on the [Unit Test](/src/Services/ServiceList/tests/ServiceList.UnitTests) and the awesome [.Net TestHost](https://docs.microsoft.com/en-us/dotnet/api/microsoft.aspnetcore.testhost?view=aspnetcore-5.0) for integration testing.
 
-
-
 ##### Outstandings
 - [ ] Bonus API Service
 - [ ] Aesthetics Improvements
+
+###### *if you are experiencing challenges from the docker side, you can run the projects directly on Visual Studio while the containers are up.*

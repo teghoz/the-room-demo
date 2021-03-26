@@ -24,7 +24,7 @@
         public ServiceListContext CreateDbContext(string[] args)
         {
             var optionsBuilder = new DbContextOptionsBuilder<ServiceListContext>()
-                .UseSqlServer("Server=.;Initial Catalog=TheRoom.Services.ServiceListDb;Integrated Security=true");
+                .UseSqlServer("Server=.;Initial Catalog=TheRoom.Service.ServiceListDb;Integrated Security=true");
 
             return new ServiceListContext(optionsBuilder.Options);
         }

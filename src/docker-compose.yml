@@ -4,8 +4,8 @@ services:
   seq:
     image: datalust/seq:latest
 
-  sqldata:
-    image: mcr.microsoft.com/mssql/server:2019-latest 
+  sql-data:
+    image: mcr.microsoft.com/mssql/server:2019-latest
 
   nosqldata:
     image: mongo
@@ -19,7 +19,7 @@ services:
       context: .
       dockerfile: Simple/TheRoomSimpleAPI/Dockerfile
     depends_on:
-      - sqldata
+      - sql-data
 
   identity-api:
     image: ${REGISTRY:-the-room}/identity-api:${PLATFORM:-linux}-${TAG:-latest}
@@ -27,7 +27,7 @@ services:
       context: .
       dockerfile: Services/Identity/IdentityAPI/Dockerfile
     depends_on:
-      - sqldata
+      - sql-data
   
   service-list-api:
     image: ${REGISTRY:-the-room}/service-list-api:${PLATFORM:-linux}-${TAG:-latest}
@@ -36,7 +36,7 @@ services:
       dockerfile: Services/ServiceList/ServiceListAPI/Dockerfile
     depends_on:
       - identity-api
-      - sqldata
+      - sql-data
       - rabbitmq
 
   bonus-api:
@@ -46,7 +46,7 @@ services:
       dockerfile: Services/Bonus/BonusAPI/Dockerfile
     depends_on:
       - identity-api
-      - sqldata
+      - sql-data
   
   the-room-react-app:
     image: ${REGISTRY:-the-room}/react-app:${PLATFORM:-linux}-${TAG:-latest}
