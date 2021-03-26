@@ -15,16 +15,16 @@ services:
     image: ${REGISTRY:-eshop}/identity-api-test:${TAG:-latest}
     build:
       context: .
-      dockerfile: Services/Identity/Identity.API/Dockerfile
+      dockerfile: Services/Identity/IdentityAPI/Dockerfile
     depends_on:
       - sql-data-test
 
 
-  catalog-api-functional-test:
-    image: ${REGISTRY:-eshop}/catalog-api-functional-test:${TAG:-latest}
+  servicelist-api-functional-test:
+    image: ${REGISTRY:-the-room}/servicelist-api-functional-test:${TAG:-latest}
     build:
       context: .
-      dockerfile: Services/Catalog/Catalog.API/Dockerfile
+      dockerfile: Services/ServiceList/ServiceListAPI/Dockerfile
       target: functionaltest
     depends_on:
       - sql-data-test
@@ -32,11 +32,11 @@ services:
     volumes:
       - ${BUILD_ARTIFACTSTAGINGDIRECTORY:-./tests-results/}:/tests
 
-  catalog-api-unit-test:
-    image: ${REGISTRY:-eshop}/catalog-api-unit-test:${TAG:-latest}
+  servicelist-api-unit-test:
+    image: ${REGISTRY:-the-room}/servicelist-api-unit-test:${TAG:-latest}
     build:
       context: .
-      dockerfile: Services/Catalog/Catalog.API/Dockerfile
+      dockerfile: Services/ServiceList/ServiceListAPI/Dockerfile
       target: unittest
     depends_on:
       - sql-data-test
