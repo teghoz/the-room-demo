@@ -25,15 +25,15 @@ services:
       - RABBITMQ_DEFAULT_USER=the_room
       - RABBITMQ_DEFAULT_PASS=Pass@word
     ports:
-      - "16672:15672"
-      - "6672:5672"
+      - "15672:15672"
+      - "5672:5672"
   
   simple-api:
     environment:
       - ASPNETCORE_ENVIRONMENT=Development
       - ASPNETCORE_URLS=http://0.0.0.0:80
       - SpaClient=http://${THE_ROOM_EXTERNAL_DNS_NAME_OR_IP}:6304
-      - ConnectionString=${THE_ROOM_AZURE_IDENTITY_DB:-Server=sqldata;Database=TheRoom.Service.SimpleDb;User Id=sa;Password=Pass@word}
+      - ConnectionString=${THE_ROOM_AZURE_IDENTITY_DB:-Server=sql-data;Database=TheRoom.Service.SimpleDb;User Id=sa;Password=Pass@word}
     ports:
       - "6305:80"
 
@@ -42,7 +42,7 @@ services:
       - ASPNETCORE_ENVIRONMENT=Development
       - ASPNETCORE_URLS=http://0.0.0.0:80
       - SpaClient=http://${THE_ROOM_EXTERNAL_DNS_NAME_OR_IP}:6104
-      - ConnectionString=${THE_ROOM_AZURE_IDENTITY_DB:-Server=sqldata;Database=TheRoom.Service.IdentityDb;User Id=sa;Password=Pass@word}
+      - ConnectionString=${THE_ROOM_AZURE_IDENTITY_DB:-Server=sql-data;Database=TheRoom.Service.IdentityDb;User Id=sa;Password=Pass@word}
       - BonusApiClient=http://${THE_ROOM_EXTERNAL_DNS_NAME_OR_IP}:5102
       - UseCustomizationData=True
       - ApplicationInsights__InstrumentationKey=${INSTRUMENTATION_KEY}
@@ -57,7 +57,7 @@ services:
       - SpaClient=http://${THE_ROOM_EXTERNAL_DNS_NAME_OR_IP}:8106
       - ServiceListClient=http://${THE_ROOM_EXTERNAL_DNS_NAME_OR_IP}:7105
       - BonusAPIClient=http://${THE_ROOM_EXTERNAL_DNS_NAME_OR_IP}:6105
-      - ConnectionString=${THE_ROOM_AZURE_SERVICE_LIST_DB:-Server=sqldata;Database=TheRoom.Service.ServiceListDb;User Id=sa;Password=Pass@word}
+      - ConnectionString=${THE_ROOM_AZURE_SERVICE_LIST_DB:-Server=sql-data;Database=TheRoom.Service.ServiceListDb;User Id=sa;Password=Pass@word}
       - EventBusRetryCount=5
       - EventBusUserName=${THE_ROOM_SERVICE_BUS_USERNAME}
       - EventBusPassword=${THE_ROOM_SERVICE_BUS_PASSWORD}

@@ -19,7 +19,7 @@ namespace TheRoomSimpleAPI.Context
         public TheRoomContext CreateDbContext(string[] args)
         {
             var optionsBuilder = new DbContextOptionsBuilder<TheRoomContext>();
-            optionsBuilder.UseSqlServer("Server=tcp:localhost,6433;Database=TheRoom.Services.SimpleDb;User Id =sa;Password=Pass@word;");
+            optionsBuilder.UseSqlServer("Server=tcp:localhost,6433;Database=TheRoom.Service.SimpleDb;User Id =sa;Password=Pass@word;");
 
             return new TheRoomContext(optionsBuilder.Options);
         }

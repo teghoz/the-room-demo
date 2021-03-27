@@ -3,16 +3,10 @@ version: '3.4'
 services:      
   service-list-api:
     environment:
-      - EventBusUserName=admin
-      - EventBusPassword=password
+      - EventBusUserName=${THE_ROOM_SERVICE_BUS_USERNAME}
+      - EventBusPassword=${THE_ROOM_SERVICE_BUS_PASSWORD}
 
   bonus-api:
     environment:
-      - EventBusUserName=admin
-      - EventBusPassword=password
-
-
-  ordering-signalrhub:
-    environment:
-      - EventBusUserName=admin
-      - EventBusPassword=password
+      - EventBusUserName=${THE_ROOM_SERVICE_BUS_USERNAME}
+      - EventBusPassword=${THE_ROOM_SERVICE_BUS_PASSWORD}

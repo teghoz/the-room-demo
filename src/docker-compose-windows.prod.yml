@@ -1,32 +1,42 @@
 version: '3.4'
 
 services:
-
   service-list-api:
     environment:
       - ASPNETCORE_ENVIRONMENT=Production
       - ASPNETCORE_URLS=http://0.0.0.0:80
-      - ConnectionString=${ESHOP_AZURE_CATALOG_DB:-Server=sqldata;Database=Microsoft.eShopOnContainers.Services.ServiceListDb;User Id=sa;Password=Pass@word}
-      - PicBaseUrl=${ESHOP_AZURE_STORAGE_CATALOG:-http://localhost:5101/api/v1/catalog/items/[0]/pic/}   #Local: You need to open your local dev-machine firewall at range 5100-5110.  
-      - EventBusConnection=${ESHOP_AZURE_SERVICE_BUS:-rabbitmq}
-      - AzureStorageAccountName=${ESHOP_AZURE_STORAGE_CATALOG_NAME}
-      - AzureStorageAccountKey=${ESHOP_AZURE_STORAGE_CATALOG_KEY}
+      - ConnectionString=${THE_ROOM_AZURE_CATALOG_DB:-Server=sqldata;Database=Microsoft.THE_ROOMOnContainers.Services.ServiceListDb;User Id=sa;Password=Pass@word}  
+      - EventBusRetryCount=5
+      - EventBusUserName=${THE_ROOM_SERVICE_BUS_USERNAME}
+      - EventBusPassword=${THE_ROOM_SERVICE_BUS_PASSWORD}
+      - EventBusConnection=${THE_ROOM_AZURE_SERVICE_BUS:-rabbitmq}
+      - AzureStorageAccountName=${THE_ROOM_AZURE_STORAGE_CATALOG_NAME}
+      - AzureStorageAccountKey=${THE_ROOM_AZURE_STORAGE_CATALOG_KEY}
       - UseCustomizationData=True
       - AzureServiceBusEnabled=False
       - AzureStorageEnabled=False
     ports:
       - "5101:80"
 
+  simple-api:
+    environment:
+      - ASPNETCORE_ENVIRONMENT=Development
+      - ASPNETCORE_URLS=http://0.0.0.0:80
+      - SpaClient=http://${THE_ROOM_EXTERNAL_DNS_NAME_OR_IP}:6304
+      - ConnectionString=${THE_ROOM_AZURE_IDENTITY_DB:-Server=sql-data;Database=TheRoom.Service.SimpleDb;User Id=sa;Password=Pass@word}
+    ports:
+      - "6305:80"
+
   identity-api:
     environment:
       - ASPNETCORE_ENVIRONMENT=Production
       - ASPNETCORE_URLS=http://0.0.0.0:80
-      - SpaClient=http://${ESHOP_PROD_EXTERNAL_DNS_NAME_OR_IP}:5104
-      - XamarinCallback=http://${ESHOP_PROD_EXTERNAL_DNS_NAME_OR_IP}:5105/xamarincallback
-      - ConnectionStrings__DefaultConnection=${ESHOP_AZURE_IDENTITY_DB:-Server=sqldata;Database=Microsoft.eShopOnContainers.Service.IdentityDb;User Id=sa;Password=Pass@word}       
-      - MvcClient=http://${ESHOP_PROD_EXTERNAL_DNS_NAME_OR_IP}:5100              #Local: You need to open your local dev-machine firewall at range 5100-5110. 
-      - BasketApiClient=http://${ESHOP_PROD_EXTERNAL_DNS_NAME_OR_IP}:5103
-      - OrderingApiClient=http://${ESHOP_PROD_EXTERNAL_DNS_NAME_OR_IP}:5102      
+      - SpaClient=http://${THE_ROOM_PROD_EXTERNAL_DNS_NAME_OR_IP}:5104
+      - XamarinCallback=http://${THE_ROOM_PROD_EXTERNAL_DNS_NAME_OR_IP}:5105/xamarincallback
+      - ConnectionStrings__DefaultConnection=${THE_ROOM_AZURE_IDENTITY_DB:-Server=sqldata;Database=Microsoft.THE_ROOMOnContainers.Service.IdentityDb;User Id=sa;Password=Pass@word}       
+      - MvcClient=http://${THE_ROOM_PROD_EXTERNAL_DNS_NAME_OR_IP}:5100              #Local: You need to open your local dev-machine firewall at range 5100-5110. 
+      - BasketApiClient=http://${THE_ROOM_PROD_EXTERNAL_DNS_NAME_OR_IP}:5103
+      - OrderingApiClient=http://${THE_ROOM_PROD_EXTERNAL_DNS_NAME_OR_IP}:5102      
       - UseCustomizationData=True
     ports:
       - "5105:80"
@@ -37,7 +47,7 @@ services:
       - MSSQL_SA_PASSWORD=Pass@word
       - ACCEPT_EULA=Y
     ports:
-      - "5433:1433"
+      - "6433:1433"
   
   nosqldata:
     ports:
@@ -47,12 +57,9 @@ services:
     environment:
       - ASPNETCORE_ENVIRONMENT=Production
       - ASPNETCORE_URLS=http://0.0.0.0:80
-      - CatalogUrl=http://catalog-api/hc
-      - OrderingUrl=http://ordering-api/hc
-      - BasketUrl=http://basket-api/hc
+      - ServiceListUrl=http://servicelist-api/hc
       - IdentityUrl=http://identity-api/hc
-      - mvc=http://webmvc/hc
-      - spa=http://webspa/hc
+      - SimpleAPIUrl=http://simple-api-api/hc
       
     ports:
       - "5107:80"

@@ -27,8 +27,8 @@ services:
       - RABBITMQ_DEFAULT_USER=the_room
       - RABBITMQ_DEFAULT_PASS=Pass@word
     ports:
-      - "16672:15672"
-      - "6672:5672"
+      - "15672:15672"
+      - "5672:5672"
   
   simple-api:
     environment:
@@ -75,6 +75,7 @@ services:
       - OrchestratorType=${ORCHESTRATOR_TYPE}
     ports:
       - "7105:80"
+      - "7505:81"
 
   the-room-react-app:
     environment:

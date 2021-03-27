@@ -1,7 +1,7 @@
 version: '3.4'
 
 services:
-  sqldata:
+  sql-data:
     image: mcr.microsoft.com/mssql/server:2019-latest 
 
   nosqldata:
@@ -11,11 +11,6 @@ services:
     image: spring2/rabbitmq
 
   identity-api:
-    build:
-      args:
-        NODE_IMAGE: stefanscherer/node-windows:10
-
-  webspa:
     build:
       args:
         NODE_IMAGE: stefanscherer/node-windows:10

@@ -55,6 +55,7 @@ services:
       dockerfile: Web/the-room/Dockerfile
     depends_on:
       - identity-api
+      - service-list-api
 
   webstatus:
     image: ${REGISTRY:-the-room}/webstatus:${PLATFORM:-linux}-${TAG:-latest}
