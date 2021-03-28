@@ -29,6 +29,7 @@ namespace TheRoomSimpleAPI.Controllers
         public ServiceListController(TheRoomContext context, IOptionsSnapshot<ApplicationSettings> settings)
         {
             _context = context ?? throw new ArgumentNullException(nameof(context));
+            var connectionstring = context.Database.GetDbConnection().ConnectionString;
             _settings = settings.Value;
             _unitOfWork = new UnitOfWork.UnitOfWork(_context);
         }

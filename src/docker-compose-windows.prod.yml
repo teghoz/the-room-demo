@@ -5,7 +5,7 @@ services:
     environment:
       - ASPNETCORE_ENVIRONMENT=Production
       - ASPNETCORE_URLS=http://0.0.0.0:80
-      - ConnectionString=${THE_ROOM_AZURE_CATALOG_DB:-Server=sqldata;Database=Microsoft.THE_ROOMOnContainers.Services.ServiceListDb;User Id=sa;Password=Pass@word}  
+      - ConnectionString=${THE_ROOM_AZURE_CATALOG_DB:-Server=sql-data;Database=Microsoft.THE_ROOMOnContainers.Services.ServiceListDb;User Id=sa;Password=Pass@word}  
       - EventBusRetryCount=5
       - EventBusUserName=${THE_ROOM_SERVICE_BUS_USERNAME}
       - EventBusPassword=${THE_ROOM_SERVICE_BUS_PASSWORD}
@@ -33,16 +33,13 @@ services:
       - ASPNETCORE_URLS=http://0.0.0.0:80
       - SpaClient=http://${THE_ROOM_PROD_EXTERNAL_DNS_NAME_OR_IP}:5104
       - XamarinCallback=http://${THE_ROOM_PROD_EXTERNAL_DNS_NAME_OR_IP}:5105/xamarincallback
-      - ConnectionStrings__DefaultConnection=${THE_ROOM_AZURE_IDENTITY_DB:-Server=sqldata;Database=Microsoft.THE_ROOMOnContainers.Service.IdentityDb;User Id=sa;Password=Pass@word}       
-      - MvcClient=http://${THE_ROOM_PROD_EXTERNAL_DNS_NAME_OR_IP}:5100              #Local: You need to open your local dev-machine firewall at range 5100-5110. 
-      - BasketApiClient=http://${THE_ROOM_PROD_EXTERNAL_DNS_NAME_OR_IP}:5103
-      - OrderingApiClient=http://${THE_ROOM_PROD_EXTERNAL_DNS_NAME_OR_IP}:5102      
+      - ConnectionStrings__DefaultConnection=${THE_ROOM_AZURE_IDENTITY_DB:-Server=sql-data;Database=TheRoom.Service.IdentityDb;User Id=sa;Password=Pass@word}
       - UseCustomizationData=True
     ports:
       - "5105:80"
 
 
-  sqldata:
+  sql-data:
     environment:
       - MSSQL_SA_PASSWORD=Pass@word
       - ACCEPT_EULA=Y

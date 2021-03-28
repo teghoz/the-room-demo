@@ -101,7 +101,7 @@ services:
       - "6107:80"
 
 volumes:
-  the-room-sqldata:
+  the-room-sql-data:
     external: false
   the-room-nosqldata:
     external: false

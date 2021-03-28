@@ -2,6 +2,7 @@
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Options;
 using Microsoft.IdentityModel.Tokens;
 using System;
@@ -44,6 +45,8 @@ namespace TheRoomSimpleAPI.Controllers
         [HttpPost("Register")]
         public async Task<IActionResult> Register(RegisterRequests model)
         {
+            var connectionstring = _context.Database.GetDbConnection().ConnectionString;
+
             if (ModelState.IsValid)
             {
                 var user = new ApplicationUser

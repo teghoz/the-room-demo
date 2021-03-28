@@ -14,7 +14,7 @@ services:
     ports:
       - "6433:1433"
     volumes:
-      - the-room-sqldata:/var/opt/mssql
+      - the-room-sql-data:/var/opt/mssql
 
   nosqldata:
     ports:
@@ -34,7 +34,6 @@ services:
     environment:
       - ASPNETCORE_ENVIRONMENT=Development
       - ASPNETCORE_URLS=http://0.0.0.0:80
-      - SpaClient=http://${THE_ROOM_EXTERNAL_DNS_NAME_OR_IP}:6304
       - ConnectionString=${THE_ROOM_AZURE_IDENTITY_DB:-Server=sql-data;Database=TheRoom.Service.SimpleDb;User Id=sa;Password=Pass@word}
     ports:
       - "6305:80"
@@ -43,8 +42,11 @@ services:
     environment:
       - ASPNETCORE_ENVIRONMENT=Development
       - ASPNETCORE_URLS=http://0.0.0.0:80
-      - SpaClient=http://${THE_ROOM_EXTERNAL_DNS_NAME_OR_IP}:6104
+      - SpaClient=http://${THE_ROOM_EXTERNAL_DNS_NAME_OR_IP}:8106
       - ConnectionString=${THE_ROOM_AZURE_IDENTITY_DB:-Server=sql-data;Database=TheRoom.Service.IdentityDb;User Id=sa;Password=Pass@word}
+      - ApplicationSettings.Secret=${THE_APPLICATION_SETTINGS_SECRET}
+      - ApplicationSettings.EncryptKey=${THE_APPLICATION_SETTINGS_ENCRYPT_KEY}
+      - ApplicationSettings.ServerKey=${THE_APPLICATION_SETTINGS_SERVER_KEY}
       - BonusApiClient=http://${THE_ROOM_EXTERNAL_DNS_NAME_OR_IP}:5102
       - UseCustomizationData=True
       - ApplicationInsights__InstrumentationKey=${INSTRUMENTATION_KEY}
@@ -103,7 +105,7 @@ services:
       - "6107:80"
 
 volumes:
-  the-room-sqldata:
+  the-room-sql-data:
     external: false
   the-room-nosqldata:
     external: false
